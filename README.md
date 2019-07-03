@@ -1,4 +1,4 @@
-<img src="https://github.com/jumphone/Delia/blob/master/img/Delia_LOGO.png" width="200">
+<img src="https://github.com/jumphone/Delia/blob/master/img/Delia_LOGO.png" width="300">
 
 
 ### Delia: an ultrafast cell-type deconvelution approach
