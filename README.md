@@ -1,8 +1,8 @@
 # Delia
 
-DE_conve_L_ut_I_on A_pproach (DELIA)
+### DE_conve_L_ut_I_on A_pproach (DELIA)
 
-Requirement
+### Requirement
 
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
@@ -10,7 +10,7 @@ Requirement
     BiocManager::install("sva")
     BiocManager::install("limma")
 
-Usage
+### Usage
 
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     
