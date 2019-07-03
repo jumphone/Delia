@@ -1,4 +1,4 @@
-# Delia
+<img https://github.com/jumphone/Delia/blob/master/img/Delia_LOGO.png width='400'>
 
 ### DE_conve_L_ut_I_on A_pproach (DELIA)
 
