@@ -102,7 +102,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
 
     ##########
     if(COMBAT==TRUE){
-
+        ##############################
+        print('Batch Correction...')
+        ##############################
         ALL=.simple_combine(NREF, NEXP)$combine
         #print(dim(ALL))
         BATCH=c(rep('REF',ncol(NREF)),rep('EXP',ncol(NEXP)))
@@ -110,7 +112,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
         ALL.combat=.combat(ALL, BATCH)
     
         NREF=ALL.combat[,c(1:ncol(REF))]
-        NEXP=ALL.combat[,c((ncol(REF)+1):ncol(ALL))]
+        NEXP=ALL.combat[,c((ncol(REF)+1):ncol(ALL))]    
         }
     ############
       
