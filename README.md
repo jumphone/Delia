@@ -1,7 +1,7 @@
 <img src="https://github.com/jumphone/Delia/blob/master/img/Delia_LOGO.png" width="200">
 
 
-### Delia: an ultrafast cell-type deconvelution approach
+### Delia: an ultrafast cell type deconvelution approach
 
 Author: Feng Zhang
 
