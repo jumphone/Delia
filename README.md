@@ -9,7 +9,7 @@ Environment: R
 
 </br>
 
-# Requirement
+# Requirement:
 
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
@@ -17,7 +17,7 @@ Environment: R
     BiocManager::install("sva")
     BiocManager::install("limma")
 
-# Usage
+# Usage:
 
 
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
