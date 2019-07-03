@@ -1,2 +1,4 @@
 # Delia
-An ultrafast cell-type deconvelution approach
+
+# an ultrafast cell-type DEconveLutIon Approach (DELIA)
+
