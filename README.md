@@ -19,11 +19,16 @@ Environment: R
 
 # Usage
 
+
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     
     mydelia=Delia(EXP, REF, COMBAT=TRUE)
-    
-    # Result is in "mydelia$out"
+        
+    # EXP：colname is sample name, rowname is gene
+    # REF: colname is cell type, rowname is gene
+    # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
+
+    # mydelia$out: colname is sample name, rowname is cell type
     
     
 
