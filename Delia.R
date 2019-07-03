@@ -35,7 +35,11 @@
 
 .generate_ref <- function(exp_sc_mat, TAG, min_cell=1, refnames=FALSE){
     NewRef=c()
+    TAG=as.matrix(TAG)
+    if(ncol(TAG)==1){TAG=cbind(TAG,TAG)}
+    
     TAG[,2]=as.character(TAG[,2])
+    
     if(refnames==FALSE){
         refnames=names(table(TAG[,2]))}
         else{refnames=refnames}
