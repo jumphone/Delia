@@ -8,12 +8,12 @@ source('Delia.R')
 
 # Load Data
 REF=read.table('Reference_expression.txt',sep='\t',header=T,row.names=1)
-REF[,4] = REF[,4] + REF[,5]
-REF=REF[,c(1,2,3,4,6,7)]
+#REF[,4] = REF[,4] + REF[,5]
+#REF=REF[,c(1,2,3,4,6,7)]
 REF=log(REF+1,10)
 REF=apply(REF, 2, .norm_exp)
 #hist(REF[,1])
-colnames(REF)=c('ASTRO','NEURON','OPC','OLIGO','MICRO','ENDO')
+colnames(REF)=c('ASTRO','NEURON','OPC','OLIGO.NEW','OLIGO.MAT','MICRO','ENDO')
 ##############################
 saveRDS(REF, file='./RDS/REF.RDS')
 ##############################
@@ -126,11 +126,6 @@ saveRDS(V.SC.REF_scmat, file='./RDS/V.SC.REF_scmat.RDS')
 
 
 # Generate CIBERSORT files
-##################
-OUT=cbind(rownames(EXP),EXP)
-colnames(OUT)[1]='GENE'
-write.table(OUT, file='./CIBERSORT/EXP_mix.txt',sep='\t',row.names=F,col.names=T,quote=F)
-##################
 
 ##################
 OUT=cbind(rownames(REXP),REXP)
