@@ -177,10 +177,6 @@ dev.off()
 
 
 
-
-
-
-
 RATIO=readRDS(file='./RESULT/Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
