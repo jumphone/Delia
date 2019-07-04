@@ -47,7 +47,7 @@ saveRDS(EXP, file='./RDS/EXP.RDS')
 ##############################
 
 
-# Add Random Noise
+# Non-linear transfer 
 getRanMap<-function(x){
   oldx=x
   x[order(x)]=sort(rnorm(length(x)))
@@ -59,18 +59,20 @@ getRanMap<-function(x){
 set.seed(1)
 REXP=apply(EXP,2,getRanMap)
 
-REXP=REXP
-  set.seed(123)
-  addNOI=function(x){
+
+# Add Random Noise
+addNOI=function(x){
      M=mean(x)
      y=x+M/3 * rnorm(length(x))#(runif(length(x))*2-1)
      return(y)
   }
 
-  REXP=t(apply(REXP,1,addNOI))
-  REXP[which( REXP<0)]=0
-  rownames( REXP)=rownames(REXP)
-  colnames(REXP)=colnames(REXP)
+REXP=REXP
+set.seed(123)
+REXP=t(apply(REXP,1,addNOI))
+REXP[which( REXP<0)]=0
+rownames( REXP)=rownames(REXP)
+colnames(REXP)=colnames(REXP)
 
 REXP=apply(REXP, 2, .norm_exp)
 colnames(REXP)=paste0('NOI_',c(1:ncol(REXP)))
