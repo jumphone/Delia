@@ -28,7 +28,7 @@ Environment: R
     # EXP：colname is sample name, rowname is gene
     # REF: colname is cell type, rowname is gene
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
-    # WEIGHT: use gene's variance as weight to do the regression (default is TRUE)
+    # WEIGHT: use gene's variance as weight (default is TRUE)
     
     # mydelia$out: colname is sample name, rowname is cell type
     
