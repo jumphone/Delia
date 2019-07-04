@@ -27,21 +27,9 @@ heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
 dev.off()
 ########################
-
 RATIO=readRDS(file='./RESULT/Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -60,6 +48,13 @@ heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
 dev.off()
 #########################
+
+RATIO=readRDS(file='./RESULT/Delia_var.RDS')
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+
+
+
 
 
 # CIBERSORT with variable genes, 145 seconds
