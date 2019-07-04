@@ -78,6 +78,24 @@ dev.off()
 
 
 
+RATIO=readRDS(file='./RESULT/Delia_all.RDS')
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+#3.8
+
+RATIO=readRDS(file='./RESULT/Delia_var.RDS')
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+#3.57
 
 
+RATIO=readRDS(file='./RESULT/CIBERSORT_var.RDS')
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+#3.49
+
+RATIO=readRDS(file='./RESULT/CIBERSORTx_var.RDS')
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+#3.67
 
