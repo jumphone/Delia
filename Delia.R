@@ -81,7 +81,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE){
+Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -91,14 +91,16 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     REF=REF
     EXP=EXP
     COMBAT=COMBAT
+    WEIGHT=WEIGHT
+    
+    NEXP = apply(EXP,2,.norm_exp)
+    colnames(NEXP) = colnames(EXP)
+    rownames(NEXP) = rownames(EXP)
 
-    NREF=apply(REF,2,.norm_exp)
-    NEXP=apply(EXP,2,.norm_exp)
+    NREF = apply(REF,2,.norm_exp)
     colnames(NREF)=colnames(REF)
     rownames(NREF)=rownames(REF)
-    colnames(NEXP)=colnames(EXP)
-    rownames(NEXP)=rownames(EXP)
-
+    
 
     ##########
     if(COMBAT==TRUE){
@@ -116,16 +118,31 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
         }
     ############
       
-
+    #################
     COM=.simple_combine(NEXP,NREF)$combine
-    #COM=as.data.frame(COM)
+
+    ######
+   
+    if(WEIGHT==TRUE){
+        SCOM=t(apply(COM,1,scale))
+        rownames(SCOM)=rownames(COM)
+        colnames(SCOM)=colnames(COM)
+        wgt=apply(COM[,c(1:ncol(NEXP))],1,var)#apply(COM[,c((ncol(NEXP)+1):ncol(COM))],1,var)
+        COM=SCOM
+        }
+    ##################
+
     OUT=c()
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
         colnames(this_com)[1]='NOI'
         this_com=as.data.frame(this_com)
-        fit=lm(NOI ~ ., data=this_com) 
+        if(WEIGHT==TRUE){
+            fit=lm(NOI ~ ., data=this_com, weights=wgt)
+            }else{
+            fit=lm(NOI ~ ., data=this_com)	
+            }
         this_coef=fit$coefficients
         this_ratio=.norm_one(this_coef[c(2:length(this_coef))])
         OUT=cbind(OUT,this_ratio)
@@ -154,6 +171,5 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     ##############################
     return(RESULT)
     }
-
 
 
