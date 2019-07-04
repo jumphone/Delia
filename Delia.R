@@ -119,7 +119,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     ############   
     if(WEIGHT==TRUE){
     	##############################
-    	print('Get weight ...')
+    	print('Weight calculation...')
     	##############################
         SCOM=t(apply(COM,1,scale))
         rownames(SCOM)=rownames(COM)
