@@ -118,7 +118,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
 
     ############   
     if(WEIGHT==TRUE){
+    	##############################
     	print('Get weight ...')
+    	##############################
         SCOM=t(apply(COM,1,scale))
         rownames(SCOM)=rownames(COM)
         colnames(SCOM)=colnames(COM)
@@ -127,7 +129,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
         }
         
     ##################
+    ##############################
     print('Deconvelution ... ')
+    ##############################
     OUT=c()
     i=1
     while(i<=ncol(EXP)){
