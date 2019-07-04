@@ -14,7 +14,7 @@ library(limma)
 ################
 
 source('Delia.R')
-# Delia with all genes, 4 seconds
+# Delia with all genes, 5 seconds
 mydelia = Delia(REXP, SC.REF, COMBAT=TRUE, WEIGHT=TRUE) 
 RATIO=mydelia$out
 #######
@@ -30,8 +30,6 @@ dev.off()
 RATIO=readRDS(file='./RESULT/Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
-
-
 
 
 
@@ -52,8 +50,6 @@ dev.off()
 RATIO=readRDS(file='./RESULT/Delia_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
-
-
 
 
 
@@ -188,12 +184,12 @@ dev.off()
 RATIO=readRDS(file='./RESULT/Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
-#4.1
+#4.16
 
 RATIO=readRDS(file='./RESULT/Delia_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
-#3.52
+#3.90
 
 
 RATIO=readRDS(file='./RESULT/CIBERSORT_var.RDS')
@@ -209,7 +205,7 @@ CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 RATIO=readRDS(file='./RESULT/MuSiC_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
-#4.01
+#4.02
 
 
 RATIO=readRDS(file='./RESULT/MuSiC_var.RDS')
