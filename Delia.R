@@ -93,45 +93,35 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     COMBAT=COMBAT
     WEIGHT=WEIGHT
     
-    NEXP = apply(EXP,2,.norm_exp)
-    colnames(NEXP) = colnames(EXP)
-    rownames(NEXP) = rownames(EXP)
-
-    NREF = apply(REF,2,.norm_exp)
-    colnames(NREF)=colnames(REF)
-    rownames(NREF)=rownames(REF)
-    
+    COM=.simple_combine(EXP, REF)$combine
+    NCOM=apply(COM,2,.norm_exp)
+    rownames(NCOM)=rownames(COM)
+    colnames(NCOM)=colnames(COM)
+    COM=NCOM
 
     ##########
     if(COMBAT==TRUE){
         ##############################
-        print('Batch Correction...')
+        print('Batch correction...')
         ##############################
-        ALL=.simple_combine(NREF, NEXP)$combine
-        #print(dim(ALL))
-        BATCH=c(rep('REF',ncol(NREF)),rep('EXP',ncol(NEXP)))
-        #print(BATCH)
-        ALL.combat=.combat(ALL, BATCH)
-    
-        NREF=ALL.combat[,c(1:ncol(REF))]
-        NEXP=ALL.combat[,c((ncol(REF)+1):ncol(ALL))]    
+        BATCH=c(rep('REF',ncol(REF)),rep('EXP',ncol(EXP)))
+        COM.combat=.combat(COM, BATCH) 
+        COM.orig=COM
+        COM=COM.combat
         }
-    ############
-      
-    #################
-    COM=.simple_combine(NEXP,NREF)$combine
 
-    ######
-   
+    ############   
     if(WEIGHT==TRUE){
+    	print('Get weight ...')
         SCOM=t(apply(COM,1,scale))
         rownames(SCOM)=rownames(COM)
         colnames(SCOM)=colnames(COM)
-        wgt=apply(COM[,c(1:ncol(NEXP))],1,var)#apply(COM[,c((ncol(NEXP)+1):ncol(COM))],1,var)
+        wgt=apply(SCOM, 1, var)
         COM=SCOM
         }
+        
     ##################
-
+    print('Deconvelution ... ')
     OUT=c()
     i=1
     while(i<=ncol(EXP)){
@@ -161,9 +151,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     RESULT$out=OUT
     
     if(COMBAT==TRUE){
-        RESULT$combat.exp=ALL
+        RESULT$combat.exp=COM.orig
+        RESULT$combat.exp=COM.combat
         RESULT$combat.batch=BATCH
-        RESULT$combat.adjexp=ALL.combat
         }
     ##############################
     print('Finished!')
