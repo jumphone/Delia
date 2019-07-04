@@ -42,6 +42,7 @@ rownames(ALLR)=colnames(REF)
 rownames(EXP)=rownames(REF)
 EXP=apply(EXP, 2, .norm_exp)
 ##############################
+saveRDS(ALLR, file='./RDS/ALLR.RDS')
 saveRDS(EXP, file='./RDS/EXP.RDS')
 ##############################
 
