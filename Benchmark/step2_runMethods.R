@@ -30,7 +30,7 @@ dev.off()
 #########################
 
 
-# Delia with variable genes, 1 second
+# Delia with variable genes, less than 1 second
 mydelia = Delia(REXP, V.SC.REF, COMBAT=TRUE) 
 RATIO=mydelia$out
 #######
@@ -45,8 +45,8 @@ dev.off()
 #########################
 
 
-# CIBERSORT with variable genes, 229 seconds
-CB=read.table('./RESULT/CIBERSORT.Output_Job1.txt',header=T,row.names=1,sep='\t')
+# CIBERSORT with variable genes, 144 seconds
+CB=read.table('./RESULT/CIBERSORT.Output_Job3.txt',header=T,row.names=1,sep='\t')
 RATIO=t(CB[,c(1:(ncol(CB)-3))])
 #######
 saveRDS(RATIO, file='./RESULT/CIBERSORT_var.RDS')
@@ -60,7 +60,22 @@ dev.off()
 #########################
 
 
-# CIBERSORTx with variable genes, 118 seconds
+# CIBERSORTx with variable genes, 274 seconds
+CB=read.table('./RESULT/CIBERSORTx_Job2_Adjusted.txt',header=T,row.names=1,sep='\t')
+RATIO=t(CB[,c(1:(ncol(CB)-3))])
+#######
+saveRDS(RATIO, file='./RESULT/CIBERSORTx_var.RDS')
+#######
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+pdf('./RESULT/CIBERSORTx_var.pdf',width=6, height=6)
+library('gplots')
+heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+dev.off()
+#########################
+
+
+
 
 
 
