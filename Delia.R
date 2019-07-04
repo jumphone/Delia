@@ -1,5 +1,7 @@
 
 .norm_exp<-function(x){
+    y=x
+    y[which(x<0)]=0
     y=x/sum(x)
     y=y*1000000
     return(y)
@@ -108,6 +110,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
         COM.combat=.combat(COM, BATCH) 
         COM.orig=COM
         COM=COM.combat
+        NCOM=apply(COM,2,.norm_exp)
+        rownames(NCOM)=rownames(COM)
+        colnames(NCOM)=colnames(COM)
+        COM=NCOM
         }
 
     ############   
