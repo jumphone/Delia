@@ -45,7 +45,7 @@ dev.off()
 #########################
 
 
-# CIBERSORT with variable genes, 144 seconds
+# CIBERSORT with variable genes, 145 seconds
 CB=read.table('./RESULT/CIBERSORT.Output_Job3.txt',header=T,row.names=1,sep='\t')
 RATIO=t(CB[,c(1:(ncol(CB)-3))])
 #######
@@ -60,7 +60,7 @@ dev.off()
 #########################
 
 
-# CIBERSORTx with variable genes, 274 seconds
+# CIBERSORTx with variable genes, 275 seconds
 CB=read.table('./RESULT/CIBERSORTx_Job2_Adjusted.txt',header=T,row.names=1,sep='\t')
 RATIO=t(CB[,c(1:(ncol(CB)-3))])
 #######
