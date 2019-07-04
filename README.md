@@ -19,15 +19,17 @@ Environment: R
 
 # Usage:
 
-
+    library('sva')
+    library('limma')
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     
-    mydelia=Delia(EXP, REF, COMBAT=TRUE)
+    mydelia=Delia(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE)
         
     # EXP：colname is sample name, rowname is gene
     # REF: colname is cell type, rowname is gene
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
-
+    # WEIGHT: use gene's variance as weight to do the regression
+    
     # mydelia$out: colname is sample name, rowname is cell type
     
     
