@@ -63,7 +63,7 @@ REXP=apply(EXP,2,getRanMap)
 # Add Random Noise
 addNOI=function(x){
      M=mean(x)
-     y=x+M/3 * rnorm(length(x))#(runif(length(x))*2-1)
+     y=x+M/3 * rnorm(length(x))
      return(y)
   }
 
