@@ -130,7 +130,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
         
     ##################
     ##############################
-    print('Deconvelution ... ')
+    print('Deconvolution ... ')
     ##############################
     OUT=c()
     i=1
