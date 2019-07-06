@@ -179,39 +179,155 @@ dev.off()
 
 
 
+
+
+
+
+
+
+ALLR=readRDS('./RDS/ALLR.RDS')
+
+#install.packages('PerformanceAnalytics')
+library(PerformanceAnalytics)
+
+###################
+
+
 RATIO=readRDS(file='./RESULT/Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 #4.16
+
+CALLR=cbind(ALLR[1,], ALLR[2,], ALLR[4,]+ALLR[5,], ALLR[6,],ALLR[7,])
+TRATIO=t(RATIO)
+colnames(CALLR)=colnames(TRATIO)
+colnames(CALLR)[3]='NFOL.add.MOL'
+MAT=cor(CALLR, TRATIO)
+MAT[1,1]+MAT[2,2]+MAT[3,3]+MAT[4,4]+MAT[5,5]
+#4.03
+
+colnames(CALLR)=paste0('True.',colnames(CALLR))
+colnames(TRATIO)=paste0('Estimate.',colnames(TRATIO))
+DATA=cbind(CALLR, TRATIO)
+tiff('./RESULT/Delia_cor_all.tiff',width=800,height=800)
+chart.Correlation(DATA, histogram=TRUE, pch=16)
+dev.off()
+#################################
+
 
 RATIO=readRDS(file='./RESULT/Delia_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 #3.90
 
+CALLR=cbind(ALLR[1,], ALLR[2,], ALLR[4,]+ALLR[5,], ALLR[6,],ALLR[7,])
+TRATIO=t(RATIO)
+colnames(CALLR)=colnames(TRATIO)
+colnames(CALLR)[3]='NFOL.add.MOL'
+MAT=cor(CALLR, TRATIO)
+MAT[1,1]+MAT[2,2]+MAT[3,3]+MAT[4,4]+MAT[5,5]
+#3.76
+
+colnames(CALLR)=paste0('True.',colnames(CALLR))
+colnames(TRATIO)=paste0('Estimate.',colnames(TRATIO))
+DATA=cbind(CALLR, TRATIO)
+tiff('./RESULT/Delia_cor_var.tiff',width=800,height=800)
+chart.Correlation(DATA, histogram=TRUE, pch=16)
+dev.off()
+
+############################################
 
 RATIO=readRDS(file='./RESULT/CIBERSORT_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 #3.49
 
+CALLR=cbind(ALLR[1,], ALLR[2,], ALLR[4,]+ALLR[5,], ALLR[6,],ALLR[7,])
+TRATIO=t(RATIO)
+colnames(CALLR)=colnames(TRATIO)
+colnames(CALLR)[3]='NFOL.add.MOL'
+MAT=cor(CALLR, TRATIO)
+MAT[1,1]+MAT[2,2]+MAT[3,3]+MAT[4,4]+MAT[5,5]
+#3.36
+
+colnames(CALLR)=paste0('True.',colnames(CALLR))
+colnames(TRATIO)=paste0('Estimate.',colnames(TRATIO))
+DATA=cbind(CALLR, TRATIO)
+tiff('./RESULT/CIBERSORT_cor_var.tiff',width=800,height=800)
+chart.Correlation(DATA, histogram=TRUE, pch=16)
+dev.off()
+
+########################################
+
 RATIO=readRDS(file='./RESULT/CIBERSORTx_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 #3.67
+
+CALLR=cbind(ALLR[1,], ALLR[2,], ALLR[4,]+ALLR[5,], ALLR[6,],ALLR[7,])
+TRATIO=t(RATIO)
+colnames(CALLR)=colnames(TRATIO)
+colnames(CALLR)[3]='NFOL.add.MOL'
+MAT=cor(CALLR, TRATIO)
+MAT[1,1]+MAT[2,2]+MAT[3,3]+MAT[4,4]+MAT[5,5]
+#3.53
+
+colnames(CALLR)=paste0('True.',colnames(CALLR))
+colnames(TRATIO)=paste0('Estimate.',colnames(TRATIO))
+DATA=cbind(CALLR, TRATIO)
+tiff('./RESULT/CIBERSORTx_cor_var.tiff',width=800,height=800)
+chart.Correlation(DATA, histogram=TRUE, pch=16)
+dev.off()
+
+
+########################################
+
 
 RATIO=readRDS(file='./RESULT/MuSiC_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 #4.02
 
+CALLR=cbind(ALLR[1,], ALLR[2,], ALLR[4,]+ALLR[5,], ALLR[6,],ALLR[7,])
+TRATIO=t(RATIO)
+colnames(CALLR)=colnames(TRATIO)
+colnames(CALLR)[3]='NFOL.add.MOL'
+MAT=cor(CALLR, TRATIO)
+MAT[1,1]+MAT[2,2]+MAT[3,3]+MAT[4,4]+MAT[5,5]
+#3.87
+
+colnames(CALLR)=paste0('True.',colnames(CALLR))
+colnames(TRATIO)=paste0('Estimate.',colnames(TRATIO))
+DATA=cbind(CALLR, TRATIO)
+tiff('./RESULT/MuSiC_cor_all.tiff',width=800,height=800)
+chart.Correlation(DATA, histogram=TRUE, pch=16)
+dev.off()
+
+
+
+##########################################
 
 RATIO=readRDS(file='./RESULT/MuSiC_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 #3.43
 
+CALLR=cbind(ALLR[1,], ALLR[2,], ALLR[4,]+ALLR[5,], ALLR[6,],ALLR[7,])
+TRATIO=t(RATIO)
+colnames(CALLR)=colnames(TRATIO)
+colnames(CALLR)[3]='NFOL.add.MOL'
+MAT=cor(CALLR, TRATIO)
+MAT[1,1]+MAT[2,2]+MAT[3,3]+MAT[4,4]+MAT[5,5]
+#3.30
 
+colnames(CALLR)=paste0('True.',colnames(CALLR))
+colnames(TRATIO)=paste0('Estimate.',colnames(TRATIO))
+DATA=cbind(CALLR, TRATIO)
+tiff('./RESULT/MuSiC_cor_var.tiff',width=800,height=800)
+chart.Correlation(DATA, histogram=TRUE, pch=16)
+dev.off()
+
+#######################################
 
 
 
