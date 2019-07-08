@@ -25,10 +25,10 @@ Environment: R
     
     mydelia=Delia(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE)
         
-    # Input:     
-    # The expression values of EXP and REF should be log normalized          
+    # Input:            
     # EXP：colname is sample name, rowname is gene
     # REF: colname is cell type, rowname is gene 
+    # The expression values of EXP and REF should be log normalized   
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
     # WEIGHT: use gene's variance as weight (default is TRUE)
     
