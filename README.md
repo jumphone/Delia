@@ -1,7 +1,7 @@
 <img src="https://github.com/jumphone/Delia/blob/master/img/Delia_LOGO.png" width="200">
 
 
-### DEconvoLutIon Approach (Delia)
+Delia: DEconvoLutIon Approach
 
 Author: Feng Zhang
 
