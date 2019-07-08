@@ -32,6 +32,8 @@ Environment: R
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
     # WEIGHT: use gene's variance as weight (default is TRUE)
     
+    Result:
+    
     # mydelia$out: colname is sample name, rowname is cell type
     
     
