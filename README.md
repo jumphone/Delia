@@ -1,6 +1,8 @@
 <img src="https://github.com/jumphone/Delia/blob/master/img/Delia_LOGO.png" width="200">
 
 
+### An ultrafast cell-type deconvolution tool
+
 Delia: DEconvoLutIon Approach
 
 Author: Feng Zhang
