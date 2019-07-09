@@ -332,7 +332,7 @@ CORMAT[is.na(CORMAT)]=0
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
 CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
 
-# 3.69
+# 3.70
 
 pdf('./RESULT/PBMC.CIBERSORTx_var.pdf',width=9, height=9)
 library('gplots')
