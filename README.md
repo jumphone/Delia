@@ -23,6 +23,15 @@ Environment: R
     library('limma')
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     
+    
+    # If you are using single-cell expression matrix as referece, please do the following step:
+    
+    REF=.generate_ref(sc_exp_mat, tag)
+    
+    #sc_exp_mat: normalized single-cell expression matrix (row: gene, col: cell)
+    #tag: cell type labels
+    
+    
     mydelia=Delia(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE)
         
     # Input:            
