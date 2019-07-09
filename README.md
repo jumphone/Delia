@@ -26,7 +26,7 @@ Environment: R
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     # source('Delia.R')
     
-    # If you are using single-cell expression matrix as reference, please do the following step:
+    # If you are using single-cell data as reference, please do the following step:
     
     REF=.generate_ref(sc_exp_mat, tag)
     
