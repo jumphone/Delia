@@ -99,6 +99,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     NCOM=apply(COM,2,.norm_exp)
     rownames(NCOM)=rownames(COM)
     colnames(NCOM)=colnames(COM)
+    #######
+    VAR=apply(NCOM, 1, var)
+    NCOM=NCOM[which(VAR>0),]
+    #######
     COM=NCOM
 
     ##########
