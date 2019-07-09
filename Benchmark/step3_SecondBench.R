@@ -35,6 +35,19 @@ REF=PBMC.REF
 REF=apply(REF, 2, .norm_exp)
 
 
+VAR=apply(REF, 1, var)
+VG=which(rank(-VAR) <= 2000  )
+V.REF=REF[VG,]
+
+SC.REF.MAT=as.matrix(pbmc@assays$RNA@data)
+V.SC.REF.MAT=SC.REF[VG,]
+
+###############################
+
+
+
+
+
 # Generate Simulated Data
 NUM=100
 ALLR=matrix(0,ncol=NUM,nrow=ncol(REF))
@@ -101,9 +114,18 @@ saveRDS(REXP, file='./RDS/PBMC.REXP.RDS')
 
 
 
+
+
+###
+#Delia_all, 4s
+
 mydelia=Delia(REXP, REF ,COMBAT=TRUE, WEIGHT=TRUE)
 # 4s
 RATIO=mydelia$out
+######
+saveRDS(RATIO, file='./RESULT/PBMC.Delia_all.RDS')
+######
+
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
@@ -116,17 +138,91 @@ heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(
 
 
 #######################################
+###
+#Delia_var, 1s
+
+mydelia=Delia(REXP, V.REF ,COMBAT=TRUE, WEIGHT=TRUE)
+# 1s
+RATIO=mydelia$out
+######
+saveRDS(RATIO, file='./RESULT/PBMC.Delia_var.RDS')
+######
+
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
+CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
+#ACS = 3.89
+
+library('gplots')
+heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+
+
+#######################################
 
 
 
-# MuSiC_all, 32 seconds
+
+# MuSiC_all, 49 seconds
 library(MuSiC)
 library('Biobase')
 library(xbioc)
 library(pvar)
 ###########################
-sc_mat=pbmc@assays$RNA@data #read.table('Zeisel_exp_sc_mat.txt',sep='\t',header=T,row.names=1)
-sc_mat=apply(sc_mat, 2, .norm_exp)
+sc_mat=SC.REF.MAT
+VAR=apply(sc_mat,1,var)
+sc_mat=sc_mat[which(VAR>0),]
+##################
+TAG= as.character(pbmc@active.ident) #read.table('Zeisel_exp_sc_mat_cluster_merged.txt',header=T,sep='\t')
+CELLTYPE=TAG
+assayData=REXP #readRDS('./RDS/REXP.RDS')
+#########
+Sys.time()
+Bulk.eset=ExpressionSet(assayData)
+sampleID=1:ncol(sc_mat)
+SubjectName=colnames(sc_mat)
+cellTypeID=CELLTYPE
+cellType=CELLTYPE
+pheno.matrix=data.frame(sampleID,SubjectName,cellTypeID,cellType)
+rownames(pheno.matrix)=colnames(sc_mat)
+metadata <- data.frame(labelDescription= c("Sample ID", "Subject Name", "Cell Type ID", "Cell Type Name"), row.names=c("sampleID", "SubjectName", "cellTypeID", "cellType"))
+SC.eset = ExpressionSet(assayData = data.matrix(sc_mat), phenoData =  new("AnnotatedDataFrame", data = pheno.matrix, varMetadata = metadata) )
+sampleType=colnames(sc_mat)
+PP_ALL = music_prop(bulk.eset = Bulk.eset, sc.eset = SC.eset ,markers = NULL, clusters = cellType, samples = sampleType, verbose = F)
+Sys.time()
+
+
+RATIO=t(PP_ALL$Est.prop.weighted)
+RATIO=RATIO[c(2,3,6,8,7,4,1,5,9),]
+#######
+saveRDS(RATIO, file='./RESULT/PBMC.MuSiC_all.RDS')
+#######
+
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+CORMAT[is.na(CORMAT)]=0
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
+CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
+
+#ACS = 1.83
+library('gplots')
+heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+
+#########################
+
+
+
+
+
+# MuSiC_var, 16 seconds
+library(MuSiC)
+library('Biobase')
+library(xbioc)
+library(pvar)
+###########################
+sc_mat=V.SC.REF.MAT
+
 TAG= as.character(pbmc@active.ident) #read.table('Zeisel_exp_sc_mat_cluster_merged.txt',header=T,sep='\t')
 CELLTYPE=TAG
 assayData=REXP #readRDS('./RDS/REXP.RDS')
@@ -145,17 +241,23 @@ sampleType=colnames(sc_mat)
 PP_ALL = music_prop(bulk.eset = Bulk.eset, sc.eset = SC.eset ,markers = NULL, clusters = cellType, samples = sampleType, verbose = F)
 Sys.time()
 
+
 RATIO=t(PP_ALL$Est.prop.weighted)
-RATIO=RATIO[c(5,1,2,3,4),]
+RATIO=RATIO[c(2,3,6,8,7,4,1,5,9),]
 #######
-saveRDS(RATIO, file='./RESULT/MuSiC_all.RDS')
+saveRDS(RATIO, file='./RESULT/PBMC.MuSiC_var.RDS')
 #######
+
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
-pdf('./RESULT/MuSiC_all.pdf',width=6, height=6)
+CORMAT[is.na(CORMAT)]=0
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
+CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
+
+#ACS = 1.72
 library('gplots')
 heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
-dev.off()
+
 #########################
 
 
@@ -163,13 +265,26 @@ dev.off()
 
 
 
+# Generate CIBERSORT files
 
 
+##################
+OUT=cbind(rownames(REXP),REXP)
+colnames(OUT)[1]='GENE'
+write.table(OUT, file='./CIBERSORT/PBMC.REXP_mix.txt',sep='\t',row.names=F,col.names=T,quote=F)
+##################
 
+##################
+OUT=cbind(rownames(V.REF),V.REF)
+colnames(OUT)[1]='GENE'
+write.table(OUT, file='./CIBERSORT/PBMC.V.REF_sig.txt',sep='\t',row.names=F,col.names=T,quote=F)
+##################
 
-
-
-
+##################
+OUT=cbind(rownames(V.SC.REF.MAT),V.SC.REF.MAT)
+colnames(OUT)[1]='GENE'
+write.table(OUT, file='./CIBERSORT/PBMC.V.SC.REF_scmat_sig.txt',sep='\t',row.names=F,col.names=T,quote=F)
+##################
 
 
 
