@@ -125,17 +125,17 @@ RATIO=mydelia$out
 ######
 saveRDS(RATIO, file='./RESULT/PBMC.Delia_all.RDS')
 ######
-
+RATIO=readRDS('./RESULT/PBMC.Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
 CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
 #ACS = 7.48
-
+pdf('./RESULT/PBMC.Delia_all.pdf',width=9, height=9)
 library('gplots')
 heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
-
+dev.off()
 
 #######################################
 ###
@@ -148,16 +148,17 @@ RATIO=mydelia$out
 saveRDS(RATIO, file='./RESULT/PBMC.Delia_var.RDS')
 ######
 
+RATIO=readRDS('./RESULT/PBMC.Delia_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
 CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
 #ACS = 3.89
-
+pdf('./RESULT/PBMC.Delia_var.pdf',width=9, height=9)
 library('gplots')
 heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
-
+dev.off()
 
 #######################################
 
@@ -199,16 +200,18 @@ RATIO=RATIO[c(2,3,6,8,7,4,1,5,9),]
 saveRDS(RATIO, file='./RESULT/PBMC.MuSiC_all.RDS')
 #######
 
+RATIO=readRDS('./RESULT/PBMC.MuSiC_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[is.na(CORMAT)]=0
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
 CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
 
 #ACS = 1.83
+pdf('./RESULT/PBMC.MuSiC_all.pdf',width=9, height=9)
 library('gplots')
 heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
-
+dev.off()
 #########################
 
 
@@ -248,16 +251,18 @@ RATIO=RATIO[c(2,3,6,8,7,4,1,5,9),]
 saveRDS(RATIO, file='./RESULT/PBMC.MuSiC_var.RDS')
 #######
 
+RATIO=readRDS('./RESULT/PBMC.MuSiC_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[is.na(CORMAT)]=0
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
 CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
 
 #ACS = 1.72
+pdf('./RESULT/PBMC.MuSiC_var.pdf',width=9, height=9)
 library('gplots')
 heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
-
+dev.off()
 #########################
 
 
