@@ -286,6 +286,7 @@ write.table(OUT, file='./CIBERSORT/PBMC.V.REF_sig.txt',sep='\t',row.names=F,col.
 ##################
 
 ##################
+colnames(V.SC.REF.MAT)=as.character(pbmc@active.ident)
 OUT=cbind(rownames(V.SC.REF.MAT),V.SC.REF.MAT)
 colnames(OUT)[1]='GENE'
 write.table(OUT, file='./CIBERSORT/PBMC.V.SC.REF_scmat_sig.txt',sep='\t',row.names=F,col.names=T,quote=F)
@@ -295,6 +296,50 @@ write.table(OUT, file='./CIBERSORT/PBMC.V.SC.REF_scmat_sig.txt',sep='\t',row.nam
 
 
 
+# CIBERSORT with variable genes, 161 seconds
+CB=read.table('./RESULT/CIBERSORT.Output_Job5.txt',header=T,row.names=1,sep='\t')
+RATIO=t(CB[,c(1:(ncol(CB)-3))])
+#######
+saveRDS(RATIO, file='./RESULT/PBMC.CIBERSORT_var.RDS')
+#######
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+
+CORMAT[is.na(CORMAT)]=0
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
+CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
+
+# 1.53
+
+pdf('./RESULT/PBMC.CIBERSORT_var.pdf',width=9, height=9)
+library('gplots')
+heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+dev.off()
+#########################
+
+
+# CIBERSORTx with variable genes, 311 seconds
+CB=read.table('./RESULT/CIBERSORTx_Job4_Adjusted.txt',header=T,row.names=1,sep='\t')
+RATIO=t(CB[,c(1:(ncol(CB)-3))])
+#######
+saveRDS(RATIO, file='./RESULT/PBMC.CIBERSORTx_var.RDS')
+
+
+#######
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+
+CORMAT[is.na(CORMAT)]=0
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,3]+CORMAT[4,4]+CORMAT[5,5]+
+CORMAT[6,6]+CORMAT[7,7]+CORMAT[8,8]+CORMAT[9,9]
+
+# 3.69
+
+pdf('./RESULT/PBMC.CIBERSORTx_var.pdf',width=9, height=9)
+library('gplots')
+heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+dev.off()
+#########################
 
 
 
