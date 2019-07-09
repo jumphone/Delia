@@ -3,7 +3,7 @@
 
 ### An ultrafast cell type deconvolution tool
 
-#### (D) (E) convo (L) ut (I) on (A) pproach
+#### DELIA: (D) (E) convo (L) ut (I) on (A) pproach
 
 Author: Feng Zhang
 
