@@ -24,7 +24,7 @@ Environment: R
     library('sva')
     library('limma')
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
-    
+    # source('Delia.R')
     
     # If you are using single-cell expression matrix as reference, please do the following step:
     
