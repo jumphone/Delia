@@ -28,8 +28,8 @@ Environment: R
     
     REF=.generate_ref(sc_exp_mat, tag)
     
-    #sc_exp_mat: normalized single-cell expression matrix (row: gene, col: cell)
-    #tag: cell type labels
+    # sc_exp_mat: normalized (non-scale) single-cell expression matrix (row: gene, col: cell)
+    # tag: cell type labels
     
     
     mydelia=Delia(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE)
