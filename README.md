@@ -13,6 +13,8 @@ Environment: R
 
 # Requirement:
 
+Please install "ComBat":
+
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
         
