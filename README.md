@@ -23,7 +23,7 @@ Environment: R
 
 # Usage:
 
-* [1. Load pacakge](#1-Load-pacakge)
+* [1. Load package](#1-Load-package)
 * [2. Load DEMO data](#2-Load-DEMO-data)
 * [3. Use single-cell data as the reference](#3-Use-single-cell-data-as-the-reference)
 * [4. Run Delia](#4-Run-Delia)
@@ -33,7 +33,7 @@ Environment: R
 </br>
 
 
-## 1. Load pacakge:
+## 1. Load package:
 
     library('sva')
     library('limma')
