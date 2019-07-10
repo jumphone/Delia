@@ -15,7 +15,7 @@ library(limma)
 
 source('Delia.R')
 # Delia with all genes, 5 seconds
-mydelia = Delia(REXP, SC.REF, COMBAT=TRUE, WEIGHT=TRUE) 
+mydelia = Delia(REXP, SC.REF) 
 RATIO=mydelia$out
 #######
 saveRDS(RATIO, file='./RESULT/Delia_all.RDS')
@@ -36,7 +36,7 @@ plot(RATIO[4,],ALLR[6,],pch=16)
 
 
 # Delia with variable genes, 1 second
-mydelia = Delia(REXP, V.SC.REF, COMBAT=TRUE, WEIGHT=TRUE) 
+mydelia = Delia(REXP, V.SC.REF) 
 RATIO=mydelia$out
 #######
 saveRDS(RATIO, file='./RESULT/Delia_var.RDS')
