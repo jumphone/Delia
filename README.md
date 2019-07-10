@@ -30,7 +30,7 @@ Environment: R
     
     REF=.generate_ref(sc_exp_mat, tag)
     
-    # sc_exp_mat: log-normalized (non-scale) single-cell expression matrix (row: gene, col: cell)
+    # sc_exp_mat: single-cell expression matrix (row: gene, col: cell)
     # tag: cell type labels
     
     
@@ -39,7 +39,6 @@ Environment: R
     # Input:            
     # EXP：colname is sample name, rowname is gene
     # REF: colname is cell type, rowname is gene 
-    # The expression values of EXP and REF should be log normalized   
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
     # Result:   
