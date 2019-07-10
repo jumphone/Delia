@@ -42,8 +42,8 @@ Environment: R
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
     # Result:   
-    # mydelia$out: normalized (proportion matrix); colname is sample name, rowname is cell type
-    # mydelia$coef: non-normalized (coefficient matrix); colname is sample name, rowname is cell type
+    # mydelia$out: normalized to 1 (proportion matrix); colname is sample name, rowname is cell type
+    # mydelia$coef: non-normalized to 1 (coefficient matrix); colname is sample name, rowname is cell type
     
     
 
