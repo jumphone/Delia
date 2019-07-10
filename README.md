@@ -62,15 +62,19 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 ## Result:   
 
-If cell types in the query and reference are well matched, please use "mydelia$out"
+If cell types in the query and reference are well matched, please use "mydelia$out".
 
-Sum is normalized to 1 (proportion matrix); colname is query name, rowname is cell type
+For each query sample, sum is normalized to 1 (proportion matrix).
+
+Colname is query name, and rowname is cell type.
 
     mydelia$out
     
-If you're not clear about the cell types in your query data, please use "mydelia$coef"
+If you're not clear about the cell types in your query data, please use "mydelia$coef".
  
-Sum is not normalized (coefficient matrix); colname is query name, rowname is cell type
+For each query sample, sum is not normalized to 1 (coefficient matrix).
+
+Colname is query name, and rowname is cell type.
 
     mydelia$coef
     
