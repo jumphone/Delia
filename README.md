@@ -101,27 +101,38 @@ Colname is query name, and rowname is cell type.
     
 </br>
 
-## 5. Visualization:   
+## 6. Visualization:   
    
     estimate_ratio <- mydelia$out 
     
     
-Show results of first 10 query samples:
+#### 6.1 Show results of first 10 query samples:
 
-    show_rato <- estimate_ratio[,1:10]
+    show_ratio <- estimate_ratio[,1:10]
     
     library('gplots')
      
-    heatmap.2(t(show_rato),scale=c("none"), dendrogram='none',
-        Rowv=F,Colv=F,cellnote=round(t(show_rato),2), notecol='black',
+    heatmap.2(t(show_ratio),scale=c("none"), dendrogram='none',
+        Rowv=F,Colv=F,cellnote=round(t(show_ratio),2), notecol='black',
         trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
         margins=c(10,10))
 
 
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1.png" width="300">
+  
+    COLOR=colorRampPalette(c('grey90','grey30'))(nrow(show_ratio))
+   
+    show_ratio_bar=cbind(show_ratio,rep(0,nrow(show_ratio)) )
+   
+    barplot(show_ratio_bar,las=2,col=COLOR)
+    legend("topright", 
+           legend = rownames(show_ratio), 
+           fill = COLOR)
+       
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1_BAR.png" width="350">
+       
 
-
-Show correlation between estimated and true ratios of "A":
+#### 6.2 Show correlation between estimated and true ratios of "A":
     
     True.A=true_ratio[1,]
     Est.A=estimate_ratio[1,]
