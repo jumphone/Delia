@@ -42,10 +42,10 @@ Environment: R
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
     # Result:   
-    # mydelia$out: normalized to 1 (proportion matrix); colname is sample name, rowname is cell type
-    # mydelia$coef: unnormalized to 1 (coefficient matrix); colname is sample name, rowname is cell type
+    # mydelia$out: sum is normalized to 1 (proportion matrix); colname is sample name, rowname is cell type
+    # mydelia$coef: sum is not normalized (coefficient matrix); colname is sample name, rowname is cell type
     
-    # If you're not sure about the cell types in your query data, please use "mydelia$coef"
+    # If you're not clear about the cell types in your query data, please use "mydelia$coef"
     
 
 
