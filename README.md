@@ -19,6 +19,8 @@ Environment: R
     BiocManager::install("sva")
     BiocManager::install("limma")
 
+</br>
+
 # Usage:
 
 #### Step1. Load pacakge:
@@ -34,6 +36,7 @@ Or download "Delia.R" and load it:
     
     source('Delia.R')
     
+</br>
 
 #### Step2. If you are using single-cell data as the reference, please do the following step:
     
@@ -43,6 +46,7 @@ sc_exp_mat: single-cell expression matrix (row: gene, col: cell)
 
 tag: cell type labels (a character vector of cell types)
 
+</br>
 
 #### Step3. Run Delia:
     
@@ -54,6 +58,7 @@ REF: expression matrix of reference; colname is cell type, rowname is gene
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
+</br>
 
 #### Result:   
 
