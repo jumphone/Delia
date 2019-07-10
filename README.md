@@ -52,7 +52,7 @@ tag: cell type labels (a character vector of cell types)
     
     mydelia=Delia(EXP, REF, COMBAT=TRUE)      
 
-EXP：expression matrix of query data; colname is query name, rowname is gene
+EXP: expression matrix of query data; colname is query name, rowname is gene
 
 REF: expression matrix of reference; colname is cell type, rowname is gene 
 
