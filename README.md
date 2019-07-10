@@ -23,7 +23,7 @@ Environment: R
 
 # Usage:
 
-#### Step1. Load pacakge:
+## Step1. Load pacakge:
 
     library('sva')
     library('limma')
@@ -38,7 +38,7 @@ Or download "Delia.R" and load it:
     
 </br>
 
-#### Step2. If you are using single-cell data as the reference, please do the following step:
+## Step2. If you are using single-cell data as the reference, please do the following step:
     
     REF=.generate_ref(sc_exp_mat, tag)
     
@@ -48,7 +48,7 @@ tag: cell type labels (a character vector of cell types)
 
 </br>
 
-#### Step3. Run Delia:
+## Step3. Run Delia:
     
     mydelia=Delia(EXP, REF, COMBAT=TRUE)      
 
@@ -60,7 +60,7 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 </br>
 
-#### Result:   
+## Result:   
 
 If cell types in the query and reference are well matched, please use "mydelia$out"
 
