@@ -87,32 +87,29 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     ##############################
     print('Start!')
     print(Sys.time())
-    ##############################
-    ######
-    
+    ##############################   
     REF=REF
     EXP=EXP
     COMBAT=COMBAT
     WEIGHT=WEIGHT
-    
+    ###############################
     COM=.simple_combine(EXP, REF)$combine
     NCOM=apply(COM,2,.norm_exp)
     rownames(NCOM)=rownames(COM)
     colnames(NCOM)=colnames(COM)
-    #######
+    ###########################
     VAR=apply(NCOM, 1, var)
     NCOM=NCOM[which(VAR>0),]
-    #######
+    ##########################
     COM=NCOM
-
+    COM.orig=COM
     ##########
     if(COMBAT==TRUE){
         ##############################
         print('Batch correction...')
         ##############################
         BATCH=c(rep('REF',ncol(REF)),rep('EXP',ncol(EXP)))
-        COM.combat=.combat(COM, BATCH) 
-        COM.orig=COM
+        COM.combat=.combat(COM, BATCH)         
         COM=COM.combat
         NCOM=apply(COM,2,.norm_exp)
         rownames(NCOM)=rownames(COM)
@@ -160,14 +157,19 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
     RESULT=list()
     RESULT$exp=EXP
     RESULT$ref=REF
+    RESULT$com=COM.orig
     RESULT$combat=COMBAT
-    
+    ######################  
     RESULT$out=OUT
-    
+    ######################
     if(COMBAT==TRUE){
-        RESULT$combat.exp=COM.orig
         RESULT$combat.exp=COM.combat
         RESULT$combat.batch=BATCH
+        }
+    ######################
+    if(WEIGHT==TRUE){
+        RESULT$weight=wgt
+        names(RESULT$weight)=rownames(COM.orig)
         }
     ##############################
     print('Finished!')
