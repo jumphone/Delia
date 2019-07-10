@@ -82,7 +82,8 @@ Colname is query name, and rowname is cell type.
 
     mydelia$coef
     
-    
+</br>
+
 ## 5. Visualization:   
    
 
