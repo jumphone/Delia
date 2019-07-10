@@ -106,7 +106,7 @@ Colname is query name, and rowname is cell type.
     estimate_ratio <- mydelia$out 
     
     
-Show first 10 demo query samples:
+Show results of first 10 query samples:
 
     show_rato <- estimate_ratio[,1:10]
     
