@@ -32,7 +32,7 @@ Directly load online file:
 
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     
-Or download "Delia.R" and load it:
+or, download "Delia.R" and load it:
     
     source('Delia.R')
     
