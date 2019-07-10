@@ -28,7 +28,7 @@ Environment: R
     library('sva')
     library('limma')
     
-Directly load online version:
+Directly load online file:
 
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
     
