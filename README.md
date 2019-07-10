@@ -38,7 +38,7 @@ or, download "Delia.R" and load it:
     
 </br>
 
-## Step2. If you are using single-cell data as the reference, please do the following step:
+## Step2. Use single-cell data as the reference:
     
     REF=.generate_ref(sc_exp_mat, tag)
     
