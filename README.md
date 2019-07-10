@@ -37,14 +37,15 @@ Environment: R
     mydelia=Delia(EXP, REF, COMBAT=TRUE)
         
     # Input:            
-    # EXP：colname is query name, rowname is gene
-    # REF: colname is cell type, rowname is gene 
+    # EXP：expression matrix of query data; colname is query name, rowname is gene
+    # REF: expression matrix of reference; colname is cell type, rowname is gene 
     # COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
     # Result:   
     # mydelia$out: sum is normalized to 1 (proportion matrix); colname is query name, rowname is cell type
     # mydelia$coef: sum is not normalized (coefficient matrix); colname is query name, rowname is cell type
     
+    # If cell types in the query and reference are well matched, please use "mydelia$out"   
     # If you're not clear about the cell types in your query data, please use "mydelia$coef"
     
 
