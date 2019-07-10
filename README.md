@@ -43,7 +43,7 @@ Environment: R
 
     # Result:   
     # mydelia$out: normalized to 1 (proportion matrix); colname is sample name, rowname is cell type
-    # mydelia$coef: non-normalized to 1 (coefficient matrix); colname is sample name, rowname is cell type
+    # mydelia$coef: unnormalized to 1 (coefficient matrix); colname is sample name, rowname is cell type
     
     
 
