@@ -166,11 +166,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, WEIGHT=TRUE){
         RESULT$combat.exp=COM.combat
         RESULT$combat.batch=BATCH
         }
-    ######################
-    if(WEIGHT==TRUE){
-        RESULT$weight=wgt
-        names(RESULT$weight)=rownames(COM.orig)
-        }
     ##############################
     print('Finished!')
     print(Sys.time())
