@@ -25,8 +25,14 @@ Environment: R
 
     library('sva')
     library('limma')
+    
+Directly load online version:
+
     source('https://raw.githubusercontent.com/jumphone/Delia/master/Delia.R')
-    # source('Delia.R')
+    
+Or download "Delia.R" and load it:
+    
+    source('Delia.R')
     
 
 #### Step2. If you are using single-cell data as reference, please do the following step:
