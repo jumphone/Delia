@@ -118,7 +118,7 @@ Show first 10 demo query samples:
         margins=c(10,10))
 
 
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1.png" width="200">
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1.png" width="300">
 
 
 Show correlation between estimated and true ratios of "A":
