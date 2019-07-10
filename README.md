@@ -140,7 +140,7 @@ Colname is query name, and rowname is cell type.
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
     
         
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT2.png" width="200">
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT2.png" width="300">
         
        
 
