@@ -131,6 +131,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     print('Deconvolution ... ')
     ##############################
     OUT=c()
+    C=c()
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
@@ -142,11 +143,13 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
         this_coef=fit$coefficients
         this_ratio=.norm_one(this_coef[c(2:length(this_coef))])
         OUT=cbind(OUT,this_ratio)
+        C=cbind(C, this_coef)
         i=i+1
     }
     rownames(OUT)=colnames(REF)
     colnames(OUT)=colnames(EXP)
-
+    rownames(C)=colnames(REF)
+    colnames(C)=colnames(EXP)
 
     ##################################
     RESULT=list()
@@ -156,6 +159,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     RESULT$combat=COMBAT
     ######################  
     RESULT$out=OUT
+    RESULT$coef=C
     ######################
     if(COMBAT==TRUE){
         RESULT$combat.exp=COM.combat
