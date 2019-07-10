@@ -23,6 +23,16 @@ Environment: R
 
 # Usage:
 
+* [1. Load pacakge](#1-Load-pacakge)
+* [2. Load DEMO data](#2-Load-DEMO-data)
+* [3. Use single-cell data as the reference](#3-Use-single-cell-data-as-the-reference)
+* [4. Run Delia](#4-Run-Delia)
+* [5. Results](#5-Results)
+* [6. Visualization](#6-Visualization)
+
+</br>
+
+
 ## 1. Load pacakge:
 
     library('sva')
