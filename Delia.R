@@ -143,7 +143,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
         this_coef=fit$coefficients
         this_ratio=.norm_one(this_coef[c(2:length(this_coef))])
         OUT=cbind(OUT,this_ratio)
-        C=cbind(C, this_coef)
+        C=cbind(C, this_coef[c(2:length(this_coef))])
         i=i+1
     }
     rownames(OUT)=colnames(REF)
