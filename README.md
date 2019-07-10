@@ -118,7 +118,7 @@ Colname is query name, and rowname is cell type.
         margins=c(10,10))
 
 
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1.png" width="300">
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1.png" width="300">
   
     COLOR=colorRampPalette(c('grey90','grey30'))(nrow(show_ratio))
    
@@ -129,7 +129,7 @@ Colname is query name, and rowname is cell type.
            legend = rownames(show_ratio), 
            fill = COLOR)
        
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1_BAR.png" width="350">
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_BAR.png" width="350">
        
 
 #### 6.2 Show correlation between estimated and true ratios of "A":
@@ -140,7 +140,7 @@ Colname is query name, and rowname is cell type.
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
     
         
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT2.png" width="300">
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT2.png" width="300">
         
        
 
