@@ -119,7 +119,7 @@ saveRDS(REXP, file='./RDS/PBMC.REXP.RDS')
 ###
 #Delia_all, 4s
 
-mydelia=Delia(REXP, REF ,COMBAT=TRUE, WEIGHT=TRUE)
+mydelia=Delia(REXP, REF )
 # 4s
 RATIO=mydelia$out
 ######
@@ -141,7 +141,7 @@ dev.off()
 ###
 #Delia_var, 1s
 
-mydelia=Delia(REXP, V.REF ,COMBAT=TRUE, WEIGHT=TRUE)
+mydelia=Delia(REXP, V.REF )
 # 1s
 RATIO=mydelia$out
 ######
