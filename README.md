@@ -79,9 +79,9 @@ tag: cell type labels (a character vector of cell types)
     
     mydelia <- Delia(EXP, REF, COMBAT=TRUE)      
 
-EXP: expression matrix of query data; colname is query name, rowname is gene
+EXP: expression matrix of query data; colname is query name, rowname is gene name
 
-REF: expression matrix of reference; colname is cell type, rowname is gene 
+REF: expression matrix of reference; colname is cell type, rowname is gene name
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
@@ -95,7 +95,7 @@ If cell types in the query and reference are well matched, please use "mydelia$o
 
 For each query sample, sum is normalized to 1.
 
-Colname is query name, and rowname is cell type.
+Colname is query name; Rowname is cell type.
 
     mydelia$out
 
@@ -105,7 +105,7 @@ If you're not clear about the cell types in your query data, please use "mydelia
  
 For each query sample, sum is not normalized to 1.
 
-Colname is query name, and rowname is cell type.
+Colname is query name; Rowname is cell type.
 
     mydelia$coef
     
