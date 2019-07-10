@@ -32,8 +32,9 @@ Environment: R
     
     REF=.generate_ref(sc_exp_mat, tag)
     
-    # sc_exp_mat: single-cell expression matrix (row: gene, col: cell)
-    # tag: cell type labels
+sc_exp_mat: single-cell expression matrix (row: gene, col: cell)
+
+tag: cell type labels (a character vector of cell types)
 
 #### Step3. Run Delia:
     
