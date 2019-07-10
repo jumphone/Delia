@@ -23,7 +23,7 @@ Environment: R
 
 # Usage:
 
-## Step1. Load pacakge:
+## 1. Load pacakge:
 
     library('sva')
     library('limma')
@@ -38,7 +38,7 @@ or, download "Delia.R" and load it:
     
 </br>
 
-## Step2. Use single-cell data as the reference:
+## 2. Use single-cell data as the reference:
     
     REF=.generate_ref(sc_exp_mat, tag)
     
@@ -48,7 +48,7 @@ tag: cell type labels (a character vector of cell types)
 
 </br>
 
-## Step3. Run Delia:
+## 3. Run Delia:
     
     mydelia=Delia(EXP, REF, COMBAT=TRUE)      
 
@@ -60,9 +60,9 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 </br>
 
-## Results:   
+## 4. Results:   
 
-#### Proportion Matrix
+#### 4.1 Proportion Matrix
 
 If cell types in the query and reference are well matched, please use "mydelia$out".
 
@@ -72,7 +72,7 @@ Colname is query name, and rowname is cell type.
 
     mydelia$out
 
-#### Coefficient Matrix
+#### 4.2 Coefficient Matrix
 
 If you're not clear about the cell types in your query data, please use "mydelia$coef".
  
@@ -83,6 +83,7 @@ Colname is query name, and rowname is cell type.
     mydelia$coef
     
     
+## 5. Visualization:   
    
 
    
