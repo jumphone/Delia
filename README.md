@@ -79,7 +79,7 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 ## 5. Results:   
 
-#### 5.1 Proportion Matrix
+#### 5.1 Proportion Matrix:
 
 If cell types in the query and reference are well matched, please use "mydelia$out".
 
@@ -89,7 +89,7 @@ Colname is query name, and rowname is cell type.
 
     mydelia$out
 
-#### 5.2 Coefficient Matrix
+#### 5.2 Coefficient Matrix:
 
 If you're not clear about the cell types in your query data, please use "mydelia$coef".
  
@@ -118,6 +118,7 @@ Show first 10 demo query samples:
         margins=c(10,10))
 
 
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT1.png" width="200">
 
 
 Show correlation between estimated and true ratios of "A":
@@ -128,6 +129,7 @@ Show correlation between estimated and true ratios of "A":
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
     
         
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/DEMO/PLOT2.png" width="200">
         
        
 
