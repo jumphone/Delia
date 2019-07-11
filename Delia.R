@@ -190,12 +190,13 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     }
 
 
-.writeTable <- function(DATA, PATH, SEP='\t'){
+.writeTable <- function(DATA, PATH, SEP='\t',TL='GENE'){
     DATA=DATA
     PATH=PATH
     SEP=SEP
+    TL=TL
     OUT=cbind(rownames(DATA),DATA)
-    colnames(OUT)[1]='GENE'
+    colnames(OUT)[1]=TL
     write.table(OUT, file=PATH,sep=SEP,row.names=FALSE,col.names=TRUE,quote=FALSE)
     }
     
