@@ -33,7 +33,7 @@ REF=log(REF+1,10)
 
 mydelia <- Delia(EXP, REF, COMBAT=TRUE)   
 
-
+##################
 show_ratio <- mydelia$out
 
 library('gplots')
@@ -43,8 +43,7 @@ heatmap.2(t(show_ratio),scale=c("none"), dendrogram='none',
     margins=c(10,10))
 
 
-
-
+#################
 
 show_ratio_coef <- mydelia$coef
 
