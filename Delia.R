@@ -83,7 +83,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE){
+Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -91,6 +91,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     REF=REF
     EXP=EXP
     COMBAT=COMBAT
+    SCALE=SCALE
     ###############################
     COM=.simple_combine(EXP, REF)$combine
     NCOM=apply(COM,2,.norm_exp)
@@ -116,16 +117,15 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
         COM=NCOM
         }
 
-    ############   
-    ##############################
-    print('Standardization...')
-    ##############################
-    SCOM=t(apply(COM,1,scale))
-    rownames(SCOM)=rownames(COM)
-    colnames(SCOM)=colnames(COM)
-    COM=SCOM
-
-        
+    ############  
+    if(SCALE==TRUE){
+        ##############################
+        print('Standardization...')
+        ##############################    
+        SCOM=t(apply(COM,1,scale))
+        rownames(SCOM)=rownames(COM)
+        colnames(SCOM)=colnames(COM)
+        COM=SCOM}
     ##################
     ##############################
     print('Deconvolution ... ')
