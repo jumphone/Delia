@@ -195,7 +195,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     }
 
 
-.writeTable <- function(DATA, PATH, SEP='\t',TL='GENE'){
+.writeTable <- function(DATA, PATH, SEP='\t',TL='DELIA'){
     DATA=DATA
     PATH=PATH
     SEP=SEP
