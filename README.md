@@ -117,6 +117,8 @@ Colname is query name; Rowname is cell type.
    
     estimate_ratio <- mydelia$out 
     
+    # Please use "mydelia$coef" when cell types in query and reference are not well matched.
+    
     # Save output (TXT format):
     
     .writeTable(DATA=estimate_ratio, PATH='OUTPUT.txt', SEP='\t')
