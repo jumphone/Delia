@@ -115,16 +115,19 @@ Colname is query name; Rowname is cell type.
 
 ## 6. Visualization:   
    
-    estimate_ratio <- mydelia$out 
+    estimate_ratio <- mydelia$out    
+    estimate_ratio_coef <- mydelia$coef
     
     # Please use "mydelia$coef" when cell types in query and reference are not well matched.
     
-    # Save output (TXT format):
-    
+    # Save output (TXT format):   
     .writeTable(DATA=estimate_ratio, PATH='OUTPUT.txt', SEP='\t')
-    
-    
+    .writeTable(DATA=estimate_ratio_coef, PATH='OUTPUT_COEF.txt', SEP='\t')
+
+
 #### 6.1 Show results of first 10 query samples:
+
+#### Proportion Plot
 
     show_ratio <- estimate_ratio[,1:10]
     
@@ -138,6 +141,7 @@ Colname is query name; Rowname is cell type.
 
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1.png" width="300">
   
+
     COLOR=colorRampPalette(c('grey90','grey30'))(nrow(show_ratio))
    
     show_ratio_bar=cbind(show_ratio,rep(0,nrow(show_ratio)) )
@@ -148,19 +152,44 @@ Colname is query name; Rowname is cell type.
            fill = COLOR)
        
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_BAR.png" width="350">
-       
+   
+   
+#### Coefficient Plot
+
+    show_ratio_coef <- estimate_ratio_coef[,1:10]
+    
+    library('gplots')
+     
+    heatmap.2(t(show_ratio_coef),scale=c("none"), dendrogram='none',
+        Rowv=F,Colv=F,cellnote=round(t(show_ratio_coef),2), notecol='black',
+        trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
+        margins=c(10,10))
+  
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_COEF.png" width="300">
+    
+      
 
 #### 6.2 Show correlation between estimated and true ratios of "A":
-    
+
+#### Proportion Plot
+
     True.A=true_ratio[1,]
     Est.A=estimate_ratio[1,]
     PCC=round(cor(True.A,Est.A,method='pearson'),2)
     
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
-    
-        
+           
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT2.png" width="300">
         
-       
+
+#### Coefficient Plot
+
+    True.A=true_ratio[1,]
+    Est.A=estimate_ratio_coef[1,]
+    PCC=round(cor(True.A,Est.A,method='pearson'),2)
+    
+    plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
+           
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT2_COEF.png" width="300">
 
 
