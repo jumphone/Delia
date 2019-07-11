@@ -54,11 +54,11 @@ or, download "Delia.R" and load it:
 
 Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
-    sc_exp_mat <- read.table('SingleCellREF/sc_exp_mat.txt', sep='\t',row.names=1,header=T)
+    sc_exp_mat <- .readTable(PATH='SingleCellREF/sc_exp_mat.txt', SEP='\t')
     sc_exp_mat=log(sc_exp_mat+1,10)
     sc_exp_mat=apply(sc_exp_mat, 2, .norm_exp)
     
-    tag <- read.table('SingleCellREF/tag.txt', sep='\t',row.names=1,header=T)
+    tag <- read.table('SingleCellREF/tag.txt', sep='\t', header=TRUE,row.names=1)
     tag <- as.character(tag[,1])
     
     EXP <- readRDS('EXP.RDS')    
@@ -116,6 +116,10 @@ Colname is query name; Rowname is cell type.
 ## 6. Visualization:   
    
     estimate_ratio <- mydelia$out 
+    
+    # Save output in a TXT file:
+    
+    .writeTable(DATA=estimate_ratio, PATH='OUTPUT.txt', SEP='\t')
     
     
 #### 6.1 Show results of first 10 query samples:
