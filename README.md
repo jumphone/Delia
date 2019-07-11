@@ -93,7 +93,7 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 #### 5.1 Proportion Matrix ():
 
-#### If cell types in the query and reference are <b> well matched </b>, please use "mydelia$out".
+If cell types in the query and reference are <b> well matched </b>, please use "mydelia$out".
 
 For each query sample, sum is normalized to 1.
 
@@ -103,7 +103,7 @@ Colname is query name; Rowname is cell type.
 
 #### 5.2 Coefficient Matrix:
 
-#### If you're <b> not clear about the cell types </b> in your query data, please use "mydelia$coef".
+If you're <b> not clear about the cell types </b> in your query data, please use "mydelia$coef".
  
 For each query sample, sum is not normalized to 1.
 
