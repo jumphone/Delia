@@ -91,7 +91,7 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 ## 5. Results:   
 
-#### 5.1 Proportion Matrix ():
+#### 5.1 Proportion Matrix:
 
 If cell types in the query and reference are <b> well matched </b>, please use "mydelia$out".
 
