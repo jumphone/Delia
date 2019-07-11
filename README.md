@@ -167,19 +167,6 @@ Colname is query name; Rowname is cell type.
   
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_COEF.png" width="300">
     
-#### Standardized Coefficient Plot 
- 
-    estimate_ratio_coef_scaled = .scaleCoef(estimate_ratio_coef)
-    show_ratio_coef_scaled <- estimate_ratio_coef_scaled[,1:10]
-    
-    library('gplots')
-     
-    heatmap.2(t(show_ratio_coef_scaled),scale=c("none"), dendrogram='none',
-        Rowv=F,Colv=F,cellnote=round(t(show_ratio_coef_scaled),2), notecol='black',
-        trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
-        margins=c(10,10))
-
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_COEF_SCALE.png" width="300">
 
 
 #### 6.2 Show correlation between estimated and true ratios of "A":
@@ -204,16 +191,6 @@ Colname is query name; Rowname is cell type.
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
            
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT2_COEF.png" width="300">
-
-#### Standardized Coefficient Plot 
-
-    True.A=true_ratio[1,]
-    Est.A=estimate_ratio_coef_scaled[1,]
-    PCC=round(cor(True.A,Est.A,method='pearson'),2)
-    
-    plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
-           
-<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT2_COEF_SCALE.png" width="300">
 
 
 
