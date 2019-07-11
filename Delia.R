@@ -188,7 +188,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
     SEP=SEP
     PATH=PATH
     UP=UP
-    DATA=read.table(file=PATH,sep=SEP,header=TRUE)
+    DATA=read.table(file=PATH,sep=SEP,header=TRUE,row.names=NULL)
     DATA=apply(DATA,2,as.character)
     ###########
     if(UP==TRUE){DATA[,1]=toupper(DATA[,1])}
