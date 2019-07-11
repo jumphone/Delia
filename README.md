@@ -61,7 +61,7 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
     tag <- read.table('SingleCellREF/tag.txt', sep='\t', header=TRUE,row.names=1)
     tag <- as.character(tag[,1])
     
-    EXP <- readRDS('EXP.RDS')    
+    EXP <- readRDS('EXP.RDS')  # This matrix has been log-normalized already. 
     true_ratio <- readRDS('TRUE_RATIO.RDS')
 
     
