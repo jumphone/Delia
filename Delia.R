@@ -206,5 +206,12 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     }
     
     
-
+.scaleCoef <- function(COEF){
+    COEF=COEF
+    SCOEF=apply(COEF,2,scale)
+    SCOEF=t(apply(SCOEF,1,scale))
+    rownames(SCOEF)=rownames(COEF)
+    colnames(SCOEF)=colnames(COEF)
+    return(SCOEF)
+    }
 
