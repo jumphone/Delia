@@ -173,3 +173,32 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     }
 
 
+
+
+.readTable <- function(PATH, SEP='\t'){
+    SEP=SEP
+    PATH=PATH
+    DATA=read.table(file=PATH,sep=SEP,row.names=FALSE,header=TRUE)
+    TAB=table(as.character(DATA[,1]))
+    UNIQ=names(TAB)[which(TAB==1)]
+    DATA=DATA[which(DATA[,1] %in% UNIQ),]
+    RN=DATA[,1]
+    DATA=DATA[,c(2:ncol(DATA))]
+    DATA=apply(DATA,2,as.numeric)
+    rownames(DATA)=RN
+    return(DATA)
+    }
+
+
+.writeTable <- function(DATA, PATH, SEP='\t'){
+    DATA=DATA
+    PATH=PATH
+    SEP=SEP
+    OUT=cbind(rownames(DATA),DATA)
+    colnames(OUT)[1]='GENE'
+    write.table(OUT, file=PATH,sep=SEP,row.names=FALSE,col.names=TRUE,quote=FALSE)
+    }
+    
+    
+
+
