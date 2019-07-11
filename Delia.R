@@ -179,7 +179,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     SEP=SEP
     PATH=PATH
     DATA=read.table(file=PATH,sep=SEP,header=TRUE)
-    TAB=table(as.character(DATA[,1]))
+    TAB=table(as.character(toupper(DATA[,1])))
     UNIQ=names(TAB)[which(TAB==1)]
     DATA=DATA[which(DATA[,1] %in% UNIQ),]
     RN=DATA[,1]
