@@ -175,10 +175,15 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
 
 
 
-.readTable <- function(PATH, SEP='\t'){
+.readTable <- function(PATH, SEP='\t', UP=FALSE){
     SEP=SEP
     PATH=PATH
+    UP=UP
     DATA=read.table(file=PATH,sep=SEP,header=TRUE)
+    DATA=apply(DATA,2,as.character)
+    ###########
+    if(UP==TRUE){DATA[,1]=toupper(DATA[,1])}
+    ###########
     TAB=table(as.character(DATA[,1]))
     UNIQ=names(TAB)[which(TAB==1)]
     DATA=DATA[which(DATA[,1] %in% UNIQ),]
