@@ -30,7 +30,8 @@ library(Seurat)
 REF <- .readTable(PATH='CMAT.txt.rmCC.txt', SEP='\t', UP=TRUE)
 REF=log(REF+1,10)
 
-
+########################
+source('Delia.R')
 mydelia <- Delia(EXP, REF, COMBAT=TRUE)   
 
 ##################
@@ -52,4 +53,7 @@ heatmap.2(t(show_ratio_coef),scale=c("none"), dendrogram='none',
     Rowv=F,Colv=F,cellnote=round(t(show_ratio_coef),2), notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
     margins=c(10,10))
+
+
+#################
 
