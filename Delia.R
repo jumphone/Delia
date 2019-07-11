@@ -178,7 +178,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
 .readTable <- function(PATH, SEP='\t'){
     SEP=SEP
     PATH=PATH
-    DATA=read.table(file=PATH,sep=SEP,row.names=FALSE,header=TRUE)
+    DATA=read.table(file=PATH,sep=SEP,header=TRUE)
     TAB=table(as.character(DATA[,1]))
     UNIQ=names(TAB)[which(TAB==1)]
     DATA=DATA[which(DATA[,1] %in% UNIQ),]
