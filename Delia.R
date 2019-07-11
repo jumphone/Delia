@@ -132,6 +132,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     ##############################
     OUT=c()
     C=c()
+    PV=c()
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
@@ -139,18 +140,25 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
         this_com=as.data.frame(this_com)
         ##############################
         fit=lm(NOI ~ ., data=this_com)  
+        sum_fit=summary(fit)
         ##############################
         this_coef=fit$coefficients
         this_ratio=.norm_one(this_coef[c(2:length(this_coef))])
+        this_pv=sum_fit$coefficients[c(2:nrow(sum_fit$coefficients)),4]
+        #############################        
         OUT=cbind(OUT,this_ratio)
+        PV=cbind(PV, this_pv)
         C=cbind(C, this_coef[c(2:length(this_coef))])
+        ############################
         i=i+1
     }
     rownames(OUT)=colnames(REF)
     colnames(OUT)=colnames(EXP)
+    rownames(PV)=colnames(REF)
+    colnames(PV)=colnames(EXP)
     rownames(C)=colnames(REF)
     colnames(C)=colnames(EXP)
-
+    
     ##################################
     RESULT=list()
     RESULT$exp=EXP
@@ -160,6 +168,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE){
     ######################  
     RESULT$out=OUT
     RESULT$coef=C
+    RESULT$pvalue=PV
     ######################
     if(COMBAT==TRUE){
         RESULT$combat.exp=COM.combat
