@@ -117,7 +117,7 @@ Colname is query name; Rowname is cell type.
    
     estimate_ratio <- mydelia$out 
     
-    # Save output in a TXT file:
+    # Save output (TXT format):
     
     .writeTable(DATA=estimate_ratio, PATH='OUTPUT.txt', SEP='\t')
     
