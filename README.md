@@ -121,13 +121,22 @@ Colname is query name; Rowname is cell type.
 
     mydelia$coef
     
+
+#### 5.3 Save output ():   
+
+RDS format:
+
+    saveRDS(mydelia, file='mydelia.RDS')
+    
+TXT format:
+
+    .writeTable(DATA=mydelia$out, PATH='out.txt', SEP='\t')
+    .writeTable(DATA=mydelia$coef, PATH='coef.txt', SEP='\t')
+
 </br>
 
-## 6. Visualization:   
 
-    # Save output (TXT format):   
-    .writeTable(DATA=mydelia$out, PATH='OUTPUT.txt', SEP='\t')
-    .writeTable(DATA=mydelia$coef, PATH='OUTPUT_COEF.txt', SEP='\t')
+## 6. Visualization:   
 
 
 #### 6.1 Show results of the first 10 query samples:
