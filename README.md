@@ -71,9 +71,9 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
     
     REF <- .generate_ref(sc_exp_mat, tag)
     
-sc_exp_mat: single-cell expression matrix (row: gene, col: cell)
+<b>sc_exp_mat</b>: single-cell expression matrix (row: gene, col: cell)
 
-tag: cell type labels (a character vector of cell types)
+<b>tag</b>: cell type labels (a character vector of cell types)
 
 </br>
 
@@ -81,15 +81,15 @@ tag: cell type labels (a character vector of cell types)
 
     mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='lm', SHOW=FALSE)      
 
-EXP: expression matrix of query data; colname is query name, rowname is gene name
+<b>EXP</b>: expression matrix of query data; colname is query name, rowname is gene name
 
-REF: expression matrix of reference; colname is cell type, rowname is gene name
+<b>REF</b>: expression matrix of reference; colname is cell type, rowname is gene name
 
-COMBAT: use ComBat to do batch-effect correction (default is TRUE)
+<b>COMBAT</b>: use ComBat to do batch-effect correction (default is TRUE)
 
-SHOW: show progress bar ('tcltk2' package) (default is FALSE)
+<b>SHOW</b>: show progress bar ('tcltk2' package) (default is FALSE)
 
-METHOD: 
+<b>METHOD</b>: 
     
     'lm'   linear model (used in our manuscript)    
     'rlm'  robust linear model ('MASS' package) 
