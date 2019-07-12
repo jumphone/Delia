@@ -89,6 +89,7 @@ REF: expression matrix of reference; colname is cell type, rowname is gene name
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
+</br>
 
 #### 4.2 Principal Components Regression (PCR):
 
@@ -121,6 +122,8 @@ For each query sample, sum is normalized to 1.
 Colname is query name; Rowname is cell type.
 
     mydelia$out
+
+</br>
 
 #### 5.2 Coefficient Matrix:
 
