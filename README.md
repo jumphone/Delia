@@ -183,9 +183,21 @@ TXT format:
         margins=c(10,10))
   
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_COEF.png" width="300">
-    
+ 
+Normalize coefficients:
 
+     show_ratio_coef <- .scaleGlobal(mydelia$coef)[,1:10]
+     
+     library('gplots')
+     
+     heatmap.2(t(show_ratio_coef),scale=c("none"), dendrogram='none',
+        Rowv=F,Colv=F,cellnote=round(t(show_ratio_coef),2), notecol='black',
+        trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
+        margins=c(10,10))
 
+<img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_COEF_SCALE.png" width="300">
+ 
+ 
 #### 6.2 Show correlation between estimated and true ratios of "A":
 
 #### Proportion:
