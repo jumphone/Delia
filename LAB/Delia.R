@@ -92,8 +92,19 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9, SHOW=FALSE){
     EXP=EXP
     COMBAT=COMBAT
     PCR=PCR
-    if(PCR==TRUE){library(pls)}
-    if(SHOW==TRUE){library(tcltk2)}
+    if(PCR==TRUE){
+        if(!'pls' %in% installed.packages()[,1]){
+            print("Please install 'pls' for the PCR.")
+            install.packages('pls')}
+        library(pls)
+        }
+    ###############################
+    if(SHOW==TRUE){
+        if(!'tcltk2' %in% installed.packages()[,1]){
+            print("Please install 'tcltk2' for the progress bar.")
+            install.packages('tcltk2')}
+        library(tcltk2)}
+    ###############################
     PCV=PCV
     SCALE=TRUE
     ###############################
@@ -194,6 +205,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9, SHOW=FALSE){
         RESULT$combat.batch=BATCH
         }
     ##############################
+    if(SHOW==TRUE){
+        close(pb)
+        }        
+    ###############################
     print('Finished!')
     print(Sys.time())
     ##############################
