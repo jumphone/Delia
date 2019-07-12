@@ -79,8 +79,6 @@ tag: cell type labels (a character vector of cell types)
 
 ## 4. Run Delia:
 
-#### 4.1 Linear Regression (Manuscript Version):
-
     mydelia <- Delia(EXP, REF, COMBAT=TRUE)      
 
 EXP: expression matrix of query data; colname is query name, rowname is gene name
@@ -88,25 +86,6 @@ EXP: expression matrix of query data; colname is query name, rowname is gene nam
 REF: expression matrix of reference; colname is cell type, rowname is gene name
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
-
-</br>
-
-#### 4.2 Principal Components Regression (PCR):
-
-#### If there are some very similar cell types (Multicollinearity) in your reference,  please try PCR
-
-#### Caution: PCR will be slower than linear regression.
-
-    install.packages('pls')    
-    install.packages('tcltk2')
-
-    mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=TRUE, PCV=0.95, SHOW=TRUE)   
-
-PCR: use Principal Components Regression (PCR) (default is FALSE). 
-
-PCV: when PCR is TRUE, set cutoff for variance explained by used PCs (default is 0.95)
-
-SHOW: show progress bar (default is FALSE). 
 
 </br>
 
