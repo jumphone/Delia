@@ -79,13 +79,21 @@ tag: cell type labels (a character vector of cell types)
 
 ## 4. Run Delia:
 
-    mydelia <- Delia(EXP, REF, COMBAT=TRUE)      
+    mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='lm', SHOW=FALSE)      
 
 EXP: expression matrix of query data; colname is query name, rowname is gene name
 
 REF: expression matrix of reference; colname is cell type, rowname is gene name
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
+
+SHOW: show progress bar ('tcltk2' package) (default is FALSE)
+
+METHOD: 
+    
+    'lm'   linear model (used in our manuscript)    
+    'rlm'  robust linear model ('MASS' package) 
+    'pcr'  principal components regression ('pls' package)
 
 </br>
 
