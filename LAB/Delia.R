@@ -149,7 +149,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCN=NULL){
             this_coef=fit$coefficients[,,used_pc]
             }else{
             fit=lm(NOI ~ ., data=this_com)  
-            this_coef=fit$coefficients[c(2:ncol(REF))]
+            this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             }
         
         this_ratio=.norm_one(this_coef)
