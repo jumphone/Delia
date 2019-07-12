@@ -167,7 +167,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9, SHOW=FALSE){
         C=cbind(C, this_coef)
         ############################
         if(SHOW==TRUE){
-            setTKProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
+            info = sprintf("Finished %d%%",round(i*100/NN))
+            setTkProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
             }      
         ###################
         i=i+1
