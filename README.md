@@ -87,12 +87,22 @@ REF: expression matrix of reference; colname is cell type, rowname is gene name
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
-PCR: use Principal Components Regression (PCR) (default is FALSE). install.packages('pls')
+
+#### When there are some very similar cell types in your reference, please try Principal Components Regression (PCR)
+
+#### Caution: PCR will be slower than linear regression.
+
+    install.packages('pls')
+    
+    install.packages('tcltk2')
+
+    mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=TRUE, PCV=0.95, SHOW=TRUE)   
+
+PCR: use Principal Components Regression (PCR) (default is FALSE). 
 
 PCV: when PCR is TRUE, set cutoff for variance explained by used PCs (default is 0.95)
 
-SHOW: show progress bar (default is FALSE). install.packages('tcltk2')
-
+SHOW: show progress bar (default is FALSE). 
 
 </br>
 
