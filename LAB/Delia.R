@@ -95,14 +95,16 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9, SHOW=FALSE){
     if(PCR==TRUE){
         if(!'pls' %in% installed.packages()[,1]){
             print("Please install 'pls' for the PCR.")
-            install.packages('pls')}
+            print("install.packages('pls')")
+            return(NULL)}
         library(pls)
         }
     ###############################
     if(SHOW==TRUE){
         if(!'tcltk2' %in% installed.packages()[,1]){
             print("Please install 'tcltk2' for the progress bar.")
-            install.packages('tcltk2')}
+            print("install.packages('tcltk2')")
+            return(NULL)}
         library(tcltk2)}
     ###############################
     PCV=PCV
@@ -178,7 +180,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9, SHOW=FALSE){
         C=cbind(C, this_coef)
         ############################
         if(SHOW==TRUE){
-            info = sprintf("Finished %d%%",round(i*100/NN))
+            info = sprintf("Finished %d%%", round(i*100/NN))
             setTkProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
             }      
         ###################
