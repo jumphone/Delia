@@ -89,6 +89,8 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 PCR: use Principal Components Regression (PCR) (default is FALSE). install.packages('pls')
 
+PCV: when PCR is TRUE, set cutoff for variance explained by used PCs (default is 0.95)
+
 SHOW: show progress bar (default is FALSE). install.packages('tcltk2')
 
 
