@@ -93,7 +93,7 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 #### 4.2 Principal Components Regression (PCR):
 
-#### If there are some very similar cell types (multicollinearity) in your reference,  please try PCR
+#### If there are some very similar cell types (Multicollinearity) in your reference,  please try PCR
 
 #### Caution: PCR will be slower than linear regression.
 
