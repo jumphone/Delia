@@ -36,7 +36,8 @@ plot(RATIO[4,],ALLR[6,],pch=16)
 
 
 # Delia with variable genes, 1 second
-mydelia = Delia(REXP, V.SC.REF) 
+mydelia = Delia(REXP, V.SC.REF)
+
 RATIO=mydelia$out
 #######
 saveRDS(RATIO, file='./RESULT/Delia_var.RDS')
@@ -52,6 +53,22 @@ dev.off()
 RATIO=readRDS(file='./RESULT/Delia_var.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+
+
+
+
+# 20190712###########
+source('Delia.R')
+mydelia = Delia(REXP, SC.REF)
+RATIO=mydelia$out
+CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
+library('gplots')
+heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
+######
+
+
 
 
 
