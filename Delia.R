@@ -83,7 +83,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
+Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, PCR=FALSE, PCV=0.95){
     ##############################
     print('Start!')
     print(Sys.time())
