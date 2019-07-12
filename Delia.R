@@ -83,7 +83,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
+Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -92,7 +92,21 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     EXP=EXP
     COMBAT=COMBAT
     PCR=PCR
-    if(PCR==TRUE){library(pls)}
+    if(PCR==TRUE){
+        if(!'pls' %in% installed.packages()[,1]){
+            print("Please install 'pls' for the PCR.")
+            print("install.packages('pls')")
+            return(NULL)}
+        library(pls)
+        }
+    ###############################
+    if(SHOW==TRUE){
+        if(!'tcltk2' %in% installed.packages()[,1]){
+            print("Please install 'tcltk2' for the progress bar.")
+            print("install.packages('tcltk2')")
+            return(NULL)}
+        library(tcltk2)}
+    ###############################
     PCV=PCV
     SCALE=TRUE
     ###############################
@@ -136,6 +150,12 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     OUT=c()
     C=c()
     PCN=c()
+    NN=ncol(EXP)
+    ###################
+    if(SHOW==TRUE){
+        pb = tkProgressBar('Progress',"Finished %", 0, 100)
+        }
+    #####################
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
@@ -159,6 +179,11 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
         OUT=cbind(OUT,this_ratio)
         C=cbind(C, this_coef)
         ############################
+        if(SHOW==TRUE){
+            info = sprintf("Finished %d%%", round(i*100/NN))
+            setTkProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
+            }      
+        ###################
         i=i+1
     }
     rownames(OUT)=colnames(REF)
@@ -182,6 +207,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
         RESULT$combat.batch=BATCH
         }
     ##############################
+    if(SHOW==TRUE){
+        close(pb)
+        }        
+    ###############################
     print('Finished!')
     print(Sys.time())
     ##############################
