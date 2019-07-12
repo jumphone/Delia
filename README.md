@@ -79,13 +79,18 @@ tag: cell type labels (a character vector of cell types)
 
 ## 4. Run Delia:
     
-    mydelia <- Delia(EXP, REF, COMBAT=TRUE)      
+    mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE)      
 
 EXP: expression matrix of query data; colname is query name, rowname is gene name
 
 REF: expression matrix of reference; colname is cell type, rowname is gene name
 
 COMBAT: use ComBat to do batch-effect correction (default is TRUE)
+
+PCR: use Principal Components Regression (PCR) (default is FALSE). install.packages('pls')
+
+SHOW: show progress bar (default is FALSE). install.packages('tcltk2')
+
 
 </br>
 
