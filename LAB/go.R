@@ -44,8 +44,8 @@ REF <- .readTable(PATH='CMAT.txt.rmCC.txt', SEP='\t', UP=TRUE)
 REF=log(REF+1,10)
 
 ########################
-source('Delia.R')
-mydelia <- Delia(EXP, REF, COMBAT=TRUE)   
+#source('Delia.R')
+mydelia <- Delia(EXP, REF, COMBAT=TRUE， PCR=T)   
 
 
 
