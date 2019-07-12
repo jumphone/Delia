@@ -91,11 +91,11 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
 <b>METHOD</b>: 
     
-* 'lm'   linear model (used in our manuscript).
+* 'lm' &nbsp; &nbsp; linear model (used in our manuscript).
     
-* 'rlm'  robust linear model ('MASS' package). If you are facing huge batch effect, please try 'rlm'.
+* 'rlm' &nbsp; &nbsp; robust linear model ('MASS' package). If you are facing huge batch effect, please try 'rlm'.
     
-* 'pcr'  principal components regression ('pls' package). If there are some very similar cell types in your reference, please try 'pcr'. 'pcr' is much slower than 'lm' and 'rlm'.
+* 'pcr' &nbsp; &nbsp; principal components regression ('pls' package). If there are some very similar cell types in your reference, please try 'pcr'. 'pcr' is much slower than 'lm' and 'rlm'.
     
 </br>
 
