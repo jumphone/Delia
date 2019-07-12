@@ -84,7 +84,6 @@
 
 
 Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
-	library(pls)
     ##############################
     print('Start!')
     print(Sys.time())
@@ -93,6 +92,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     EXP=EXP
     COMBAT=COMBAT
     PCR=PCR
+    if(PCR==TRUE){library(pls)}
     PCN=PCN
     PCV=PCV
     SCALE=TRUE
