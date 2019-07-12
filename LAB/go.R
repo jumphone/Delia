@@ -14,13 +14,20 @@ pbmc <- FindNeighbors(pbmc, dims = 1:10)
 pbmc <- FindClusters(pbmc, resolution = 0.5)
 DimPlot(pbmc, reduction = "umap")
 saveRDS(pbmc, file = "pbmc.RDS")
+
+
+FeaturePlot(pbmc,features=c('CCL3','TMEM119'))
 ##########################################################
 
 
 
 #########################################################
 pbmc=readRDS('pbmc.RDS')
+
+
+#EXP=.generate_ref(as.matrix(pbmc@assays$RNA@counts), Idents(pbmc))
 EXP=.generate_ref(as.matrix(pbmc@assays$RNA@data), Idents(pbmc))
+#EXP=log(EXP+1,10)
 
 
 setwd('F:/Delia/LAB')
@@ -34,14 +41,6 @@ REF=log(REF+1,10)
 source('Delia.R')
 mydelia <- Delia(EXP, REF, COMBAT=TRUE)   
 
-##################
-show_ratio <- mydelia$out
-
-library('gplots')
-heatmap.2(t(show_ratio),scale=c("none"), dendrogram='none',
-    Rowv=F,Colv=F,cellnote=round(t(show_ratio),2), notecol='black',
-    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
-    margins=c(10,10))
 
 
 #################
@@ -57,3 +56,14 @@ heatmap.2(t(show_ratio_coef),scale=c("none"), dendrogram='none',
 
 #################
 
+
+
+
+##################
+show_ratio <- mydelia$out
+
+library('gplots')
+heatmap.2(t(show_ratio),scale=c("none"), dendrogram='none',
+    Rowv=F,Colv=F,cellnote=round(t(show_ratio),2), notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
+    margins=c(10,10))
