@@ -83,7 +83,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
+Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9, SHOW=FALSE){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -93,6 +93,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     COMBAT=COMBAT
     PCR=PCR
     if(PCR==TRUE){library(pls)}
+    if(SHOW==TRUE){library(tcltk2)}
     PCV=PCV
     SCALE=TRUE
     ###############################
@@ -136,6 +137,12 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     OUT=c()
     C=c()
     PCN=c()
+    NN=ncol(EXP)
+    ###################
+    if(SHOW==TRUE){
+        pb = tkProgressBar('Progress',"Finished %", 0, 100)
+        }
+    #####################
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
@@ -159,6 +166,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
         OUT=cbind(OUT,this_ratio)
         C=cbind(C, this_coef)
         ############################
+        if(SHOW==TRUE){
+            setTKProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
+            }      
+        ###################
         i=i+1
     }
     rownames(OUT)=colnames(REF)
