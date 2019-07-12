@@ -10,8 +10,14 @@ pbmc <- ScaleData(pbmc, features =VariableFeatures(object = pbmc))
 pbmc <- RunPCA(pbmc, features = VariableFeatures(object = pbmc))
 pbmc <- RunUMAP(pbmc, dims = 1:10)
 
-pbmc <- FindNeighbors(pbmc, dims = 1:10)
-pbmc <- FindClusters(pbmc, resolution = 0.5)
+VEC=pbmc@reductions$umap@cell.embeddings
+K=kmeans(VEC,centers=50)
+C=K$cluster
+Idents(pbmc)=as.character(C)
+
+#pbmc <- FindNeighbors(pbmc, dims = 1:10)
+#pbmc <- FindClusters(pbmc, resolution = 0.5)
+
 DimPlot(pbmc, reduction = "umap")
 saveRDS(pbmc, file = "pbmc.RDS")
 
@@ -67,3 +73,17 @@ heatmap.2(t(show_ratio),scale=c("none"), dendrogram='none',
     Rowv=F,Colv=F,cellnote=round(t(show_ratio),2), notecol='black',
     trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
     margins=c(10,10))
+
+
+
+show_ratio=apply(show_ratio,2,scale)
+
+library('gplots')
+heatmap.2(t(show_ratio),scale=c("none"), dendrogram='none',
+    Rowv=F,Colv=F,cellnote=round(t(show_ratio),2), notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),
+    margins=c(10,10))
+
+
+
+
