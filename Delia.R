@@ -83,6 +83,8 @@
     }
 
 
+
+
 Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ##############################
     print('Start!')
@@ -163,7 +165,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     NN=ncol(EXP)
     ###################
     if(SHOW==TRUE){
-        pb = tkProgressBar('Delia',"Finished %", 0, 100)
+        pb = tkProgressBar('Delia',"/", 0, NN)
         }
     #####################
     i=1
@@ -190,6 +192,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
             fit=rlm(NOI ~ ., data=this_com)  
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             }
+        ############################
 
         ############################
         this_ratio=.norm_one(this_coef)
@@ -198,8 +201,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         C=cbind(C, this_coef)
         ############################
         if(SHOW==TRUE){
-            info = sprintf("Finished %d%%", round(i*100/NN))
-            setTkProgressBar(pb, i*100/NN, sprintf('Delia (%s)',info), info)
+            info = sprintf(paste0("%d /",NN), round(i))
+            setTkProgressBar(pb, i, sprintf('Delia (%s)',info), info)
             }      
         ###################
         i=i+1
@@ -234,6 +237,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ##############################
     return(RESULT)
     }
+
 
 
 
