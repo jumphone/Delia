@@ -92,13 +92,23 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     EXP=EXP
     COMBAT=COMBAT
     METHOD=METHOD
+    ##############################
+    # Check package
     if(METHOD=='pcr'){
         if(!'pls' %in% installed.packages()[,1]){
-            print("Please install 'pls' for the PCR.")
+            print("Please install 'pls' for the principal components regression.")
             print("install.packages('pls')")
             return(NULL)}
         library(pls)
         }
+    if(METHOD=='rlm'){
+        if(!'MASS' %in% installed.packages()[,1]){
+            print("Please install 'MASS' for the robust linear regression.")
+            print("install.packages('MASS')")
+            return(NULL)}
+        library(MASS)
+        }
+    
     ###############################
     if(SHOW==TRUE){
         if(!'tcltk2' %in% installed.packages()[,1]){
@@ -177,7 +187,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
             }
         ##############################
         if(METHOD=='rlm'){
-            library(MASS)
             fit=rlm(NOI ~ ., data=this_com)  
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             }
