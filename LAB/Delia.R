@@ -83,7 +83,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCN=NULL){
+Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
 	library(pls)
     ##############################
     print('Start!')
@@ -94,8 +94,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCN=NULL){
     COMBAT=COMBAT
     PCR=PCR
     PCN=PCN
-    used_pc=ncol(REF)
-    if(!is.null(PCN)){used_pc=PCN}
+    PCV=PCV
     SCALE=TRUE
     ###############################
     COM=.simple_combine(EXP, REF)$combine
@@ -146,6 +145,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCN=NULL){
         ##############################
         if(PCR==TRUE){
             fit=pcr(NOI~., data = this_com, scale = TRUE, validation = "CV")
+            Xvar=fit$Xvar/fit$Xtotvar
+            used_pc=1
+            while(sum(Xvar[1:used_pc])<PCV){used_pc=used_pc+1}
             this_coef=fit$coefficients[,,used_pc]
             }else{
             fit=lm(NOI ~ ., data=this_com)  
