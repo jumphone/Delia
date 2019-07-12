@@ -78,7 +78,7 @@ tag: cell type labels (a character vector of cell types)
 </br>
 
 ## 4. Run Delia:
-    
+
     mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE)      
 
 EXP: expression matrix of query data; colname is query name, rowname is gene name
