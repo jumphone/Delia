@@ -89,9 +89,9 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
 <b>SHOW</b>: show progress bar ('tcltk2' package) (Default is FALSE)
 
-<b>METHOD</b>: (Default is 'lm')
+<b>METHOD</b>: 
     
-* <b>'lm'</b> &nbsp; : &nbsp; linear model (used in our manuscript). (Defua)
+* <b>'lm'</b> &nbsp; : &nbsp; linear model (used in our manuscript) (Default).
     
 * <b>'rlm'</b> &nbsp; : &nbsp; robust linear model ('MASS' package). If you are facing huge batch effect, please try 'rlm'.
     
