@@ -81,17 +81,17 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
     mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='lm', SHOW=FALSE)      
 
-<b>EXP</b>: expression matrix of query data; colname is query name, rowname is gene name
+<b>EXP</b>: expression matrix of query data; Colname is query name, rowname is gene name
 
-<b>REF</b>: expression matrix of reference; colname is cell type, rowname is gene name
+<b>REF</b>: expression matrix of reference; Colname is cell type, rowname is gene name
 
-<b>COMBAT</b>: use ComBat to do batch-effect correction (default is TRUE)
+<b>COMBAT</b>: use ComBat to do batch-effect correction (Default is TRUE)
 
-<b>SHOW</b>: show progress bar ('tcltk2' package) (default is FALSE)
+<b>SHOW</b>: show progress bar ('tcltk2' package) (Default is FALSE)
 
-<b>METHOD</b>: 
+<b>METHOD</b>: (Default is 'lm')
     
-* <b>'lm'</b> &nbsp; : &nbsp; linear model (used in our manuscript).
+* <b>'lm'</b> &nbsp; : &nbsp; linear model (used in our manuscript). (Defua)
     
 * <b>'rlm'</b> &nbsp; : &nbsp; robust linear model ('MASS' package). If you are facing huge batch effect, please try 'rlm'.
     
