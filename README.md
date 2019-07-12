@@ -132,7 +132,7 @@ Colname is query name; Rowname is cell type.
 
 #### 6.1 Show results of the first 10 query samples:
 
-#### Proportion Plot
+#### Proportion:
 
     show_ratio <-  mydelia$out[,1:10]
     
@@ -159,7 +159,7 @@ Colname is query name; Rowname is cell type.
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT1_BAR.png" width="350">
    
    
-#### Coefficient Plot
+#### Coefficient:
 
     show_ratio_coef <- mydelia$coef[,1:10]
     
@@ -176,7 +176,7 @@ Colname is query name; Rowname is cell type.
 
 #### 6.2 Show correlation between estimated and true ratios of "A":
 
-#### Proportion Plot
+#### Proportion:
 
     True.A=true_ratio[1,]
     Est.A=mydelia$out[1,]
@@ -187,7 +187,7 @@ Colname is query name; Rowname is cell type.
 <img src="https://raw.githubusercontent.com/jumphone/Delia/master/img/PLOT2.png" width="300">
         
 
-#### Coefficient Plot
+#### Coefficient:
 
     True.A=true_ratio[1,]
     Est.A=mydelia$coef[1,]
