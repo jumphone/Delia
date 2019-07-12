@@ -83,7 +83,7 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
+Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -91,7 +91,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
     REF=REF
     EXP=EXP
     COMBAT=COMBAT
-    SCALE=SCALE
+    PCR=PCR
+    if(PCR==TRUE){library(pls)}
+    PCV=PCV
+    SCALE=TRUE
     ###############################
     COM=.simple_combine(EXP, REF)$combine
     NCOM=apply(COM,2,.norm_exp)
@@ -132,30 +135,34 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
     ##############################
     OUT=c()
     C=c()
-    PV=c()
+    PCN=c()
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
         colnames(this_com)[1]='NOI'
         this_com=as.data.frame(this_com)
         ##############################
-        fit=lm(NOI ~ ., data=this_com)  
-        sum_fit=summary(fit)
-        ##############################
-        this_coef=fit$coefficients
-        this_ratio=.norm_one(this_coef[c(2:length(this_coef))])
-        this_pv=sum_fit$coefficients[c(2:nrow(sum_fit$coefficients)),4]
+        if(PCR==TRUE){
+            fit=pcr(NOI~., data = this_com, scale = TRUE, validation = "CV")
+            Xvar=fit$Xvar/fit$Xtotvar
+            used_pc=1
+            while(sum(Xvar[1:used_pc])<PCV & used_pc<ncol(REF) ){used_pc=used_pc+1}
+            PCN=c(PCN,used_pc)
+            this_coef=fit$coefficients[,,used_pc]
+            }else{
+            fit=lm(NOI ~ ., data=this_com)  
+            this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
+            }
+        
+        this_ratio=.norm_one(this_coef)
         #############################        
         OUT=cbind(OUT,this_ratio)
-        PV=cbind(PV, this_pv)
-        C=cbind(C, this_coef[c(2:length(this_coef))])
+        C=cbind(C, this_coef)
         ############################
         i=i+1
     }
     rownames(OUT)=colnames(REF)
     colnames(OUT)=colnames(EXP)
-    rownames(PV)=colnames(REF)
-    colnames(PV)=colnames(EXP)
     rownames(C)=colnames(REF)
     colnames(C)=colnames(EXP)
     
@@ -168,7 +175,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
     ######################  
     RESULT$out=OUT
     RESULT$coef=C
-    RESULT$pvalue=PV
+    RESULT$pcn=PCN
     ######################
     if(COMBAT==TRUE){
         RESULT$combat.exp=COM.combat
@@ -223,4 +230,3 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SCALE=TRUE){
     colnames(SCOEF)=colnames(COEF)
     return(SCOEF)
     }
-
