@@ -124,22 +124,17 @@ Colname is query name; Rowname is cell type.
 </br>
 
 ## 6. Visualization:   
-   
-    estimate_ratio <- mydelia$out    
-    estimate_ratio_coef <- mydelia$coef
-    
-    # Please use "mydelia$coef" when cell types in query and reference are not well matched.
-    
+
     # Save output (TXT format):   
-    .writeTable(DATA=estimate_ratio, PATH='OUTPUT.txt', SEP='\t')
-    .writeTable(DATA=estimate_ratio_coef, PATH='OUTPUT_COEF.txt', SEP='\t')
+    .writeTable(DATA=mydelia$out, PATH='OUTPUT.txt', SEP='\t')
+    .writeTable(DATA=mydelia$coef, PATH='OUTPUT_COEF.txt', SEP='\t')
 
 
 #### 6.1 Show results of the first 10 query samples:
 
 #### Proportion Plot
 
-    show_ratio <- estimate_ratio[,1:10]
+    show_ratio <-  mydelia$out[,1:10]
     
     library('gplots')
      
@@ -166,7 +161,7 @@ Colname is query name; Rowname is cell type.
    
 #### Coefficient Plot
 
-    show_ratio_coef <- estimate_ratio_coef[,1:10]
+    show_ratio_coef <- mydelia$coef[,1:10]
     
     library('gplots')
      
@@ -184,7 +179,7 @@ Colname is query name; Rowname is cell type.
 #### Proportion Plot
 
     True.A=true_ratio[1,]
-    Est.A=estimate_ratio[1,]
+    Est.A=mydelia$out[1,]
     PCC=round(cor(True.A,Est.A,method='pearson'),2)
     
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
@@ -195,7 +190,7 @@ Colname is query name; Rowname is cell type.
 #### Coefficient Plot
 
     True.A=true_ratio[1,]
-    Est.A=estimate_ratio_coef[1,]
+    Est.A=mydelia$coef[1,]
     PCC=round(cor(True.A,Est.A,method='pearson'),2)
     
     plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
