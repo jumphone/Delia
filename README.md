@@ -81,7 +81,7 @@ tag: cell type labels (a character vector of cell types)
 
 #### 4.1 Linear Regression (Manuscript Version):
 
-    mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE)      
+    mydelia <- Delia(EXP, REF, COMBAT=TRUE)      
 
 EXP: expression matrix of query data; colname is query name, rowname is gene name
 
@@ -97,8 +97,7 @@ COMBAT: use ComBat to do batch-effect correction (default is TRUE)
 
 #### Caution: PCR will be slower than linear regression.
 
-    install.packages('pls')
-    
+    install.packages('pls')    
     install.packages('tcltk2')
 
     mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=TRUE, PCV=0.95, SHOW=TRUE)   
