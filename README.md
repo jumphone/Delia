@@ -79,7 +79,7 @@ tag: cell type labels (a character vector of cell types)
 
 ## 4. Run Delia:
 
-#### 4.1 Linear Regression (manuscript version):
+#### 4.1 Linear Regression (Manuscript Version):
 
     mydelia <- Delia(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE)      
 
