@@ -221,7 +221,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ######################  
     RESULT$out=OUT
     RESULT$coef=C
-    RESULT$pcn=PCN
+    RESULT$pcn=PCN  
+    RESULT$pcv=PCV
+    RESULT$method=METHOD
     ######################
     if(COMBAT==TRUE){
         RESULT$combat.exp=COM.combat
