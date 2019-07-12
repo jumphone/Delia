@@ -163,7 +163,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     NN=ncol(EXP)
     ###################
     if(SHOW==TRUE){
-        pb = tkProgressBar('Progress',"Finished %", 0, 100)
+        pb = tkProgressBar('Delia',"Finished %", 0, 100)
         }
     #####################
     i=1
@@ -199,7 +199,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         ############################
         if(SHOW==TRUE){
             info = sprintf("Finished %d%%", round(i*100/NN))
-            setTkProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
+            setTkProgressBar(pb, i*100/NN, sprintf('Delia (%s)',info), info)
             }      
         ###################
         i=i+1
