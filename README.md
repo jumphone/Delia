@@ -91,7 +91,7 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
 <b>METHOD</b>: 
     
-* 'lm'   linear model (used in our manuscript), fast
+* 'lm'   linear model (used in our manuscript).
     
 * 'rlm'  robust linear model ('MASS' package). If you are facing huge batch effect, please try 'rlm'.
     
