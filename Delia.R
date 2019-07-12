@@ -294,6 +294,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
 .scaleGlobal <- function(DATA){
     DATA=mydelia$coef
     OUT=matrix(scale(as.numeric(DATA)), ncol=ncol(DATA),nrow=nrow(DATA))
+    OUT=pnorm(OUT)
     rownames(OUT)=rownames(DATA)
     colnames(OUT)=colnames(DATA)
     return(OUT)
