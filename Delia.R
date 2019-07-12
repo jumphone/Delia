@@ -92,6 +92,12 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ##############################   
     REF=REF
     EXP=EXP
+    #############################
+    header.REF=colnames(REF)
+    header.EXP=colnames(EXP)
+    colnames(REF)=paste0('X',c(1:ncol(REF)))
+    colnames(EXP)=paste0('X',c(1:ncol(EXP)))
+    ############################
     COMBAT=COMBAT
     METHOD=METHOD
     ##############################
@@ -207,10 +213,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         ###################
         i=i+1
     }
-    rownames(OUT)=colnames(REF)
-    colnames(OUT)=colnames(EXP)
-    rownames(C)=colnames(REF)
-    colnames(C)=colnames(EXP)
+    rownames(OUT)=header.REF
+    colnames(OUT)=header.EXP
+    rownames(C)=header.REF
+    colnames(C)=header.EXP
     
     ##################################
     RESULT=list()
