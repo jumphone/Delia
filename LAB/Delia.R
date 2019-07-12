@@ -84,7 +84,7 @@
 
 
 Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE){
-	library(pls)
+	
     ##############################
     print('Start!')
     print(Sys.time())
@@ -93,6 +93,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE){
     EXP=EXP
     COMBAT=COMBAT
     PCR=PCR
+    if(PCR==TRUE){library(pls)}
     SCALE=TRUE
     ###############################
     COM=.simple_combine(EXP, REF)$combine
