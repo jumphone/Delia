@@ -135,7 +135,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     ##############################
     OUT=c()
     C=c()
-    #PV=c()
+    PCN=c()
     i=1
     while(i<=ncol(EXP)){
         this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
@@ -147,6 +147,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
             Xvar=fit$Xvar/fit$Xtotvar
             used_pc=1
             while(sum(Xvar[1:used_pc])<PCV){used_pc=used_pc+1}
+            PCN=c(PCN,used_pc)
             this_coef=fit$coefficients[,,used_pc]
             }else{
             fit=lm(NOI ~ ., data=this_com)  
@@ -174,6 +175,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
     ######################  
     RESULT$out=OUT
     RESULT$coef=C
+    RESULT$pcn=PCN
     ######################
     if(COMBAT==TRUE){
         RESULT$combat.exp=COM.combat
