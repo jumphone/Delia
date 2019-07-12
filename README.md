@@ -148,7 +148,7 @@ Colname is query name; Rowname is cell type.
     .writeTable(DATA=estimate_ratio_coef, PATH='OUTPUT_COEF.txt', SEP='\t')
 
 
-#### 6.1 Show results of first 10 query samples:
+#### 6.1 Show results of the first 10 query samples:
 
 #### Proportion Plot
 
