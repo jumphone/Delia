@@ -146,7 +146,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.9){
             fit=pcr(NOI~., data = this_com, scale = TRUE, validation = "CV")
             Xvar=fit$Xvar/fit$Xtotvar
             used_pc=1
-            while(sum(Xvar[1:used_pc])<PCV){used_pc=used_pc+1}
+            while(sum(Xvar[1:used_pc])<PCV & used_pc<ncol(REF) ){used_pc=used_pc+1}
             PCN=c(PCN,used_pc)
             this_coef=fit$coefficients[,,used_pc]
             }else{
