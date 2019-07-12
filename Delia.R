@@ -207,7 +207,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         C=cbind(C, this_coef)
         ############################
         if(SHOW==TRUE){
-            info = sprintf(paste0("%d /",NN), round(i))
+            info = sprintf(paste0("%d / ",NN), round(i))
             setTkProgressBar(pb, i, sprintf('Delia (%s)',info), info)
             }      
         ###################
