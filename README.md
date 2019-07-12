@@ -120,9 +120,10 @@ For each query sample, sum is not normalized to 1.
 Colname is query name; Rowname is cell type.
 
     mydelia$coef
-    
 
-#### 5.3 Save output ():   
+</br>
+
+#### 5.3 Save Result:   
 
 RDS format:
 
