@@ -83,22 +83,40 @@
     }
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
+
+
+Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ##############################
     print('Start!')
     print(Sys.time())
     ##############################   
     REF=REF
     EXP=EXP
+    #############################
+    header.REF=colnames(REF)
+    header.EXP=colnames(EXP)
+    colnames(REF)=paste0('X',c(1:ncol(REF)))
+    colnames(EXP)=paste0('X',c(1:ncol(EXP)))
+    ############################
     COMBAT=COMBAT
-    PCR=PCR
-    if(PCR==TRUE){
+    METHOD=METHOD
+    ##############################
+    # Check package
+    if(METHOD=='pcr'){
         if(!'pls' %in% installed.packages()[,1]){
-            print("Please install 'pls' for the PCR.")
+            print("Please install 'pls' for the principal components regression.")
             print("install.packages('pls')")
             return(NULL)}
         library(pls)
         }
+    if(METHOD=='rlm'){
+        if(!'MASS' %in% installed.packages()[,1]){
+            print("Please install 'MASS' for the robust linear regression.")
+            print("install.packages('MASS')")
+            return(NULL)}
+        library(MASS)
+        }
+    
     ###############################
     if(SHOW==TRUE){
         if(!'tcltk2' %in% installed.packages()[,1]){
@@ -153,7 +171,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
     NN=ncol(EXP)
     ###################
     if(SHOW==TRUE){
-        pb = tkProgressBar('Progress',"Finished %", 0, 100)
+        pb = tkProgressBar('Delia',"/", 0, NN)
         }
     #####################
     i=1
@@ -162,34 +180,43 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
         colnames(this_com)[1]='NOI'
         this_com=as.data.frame(this_com)
         ##############################
-        if(PCR==TRUE){
+        if(METHOD=='pcr'){
             fit=pcr(NOI~., data = this_com, scale = TRUE, validation = "CV")
             Xvar=fit$Xvar/fit$Xtotvar
             used_pc=1
             while(sum(Xvar[1:used_pc])<PCV & used_pc<ncol(REF) ){used_pc=used_pc+1}
             PCN=c(PCN,used_pc)
             this_coef=fit$coefficients[,,used_pc]
-            }else{
+            }
+        ##############################
+        if(METHOD=='lm'){
             fit=lm(NOI ~ ., data=this_com)  
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             }
-        
+        ##############################
+        if(METHOD=='rlm'){
+            fit=rlm(NOI ~ ., data=this_com)  
+            this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
+            }
+        ############################
+
+        ############################
         this_ratio=.norm_one(this_coef)
         #############################        
         OUT=cbind(OUT,this_ratio)
         C=cbind(C, this_coef)
         ############################
         if(SHOW==TRUE){
-            info = sprintf("Finished %d%%", round(i*100/NN))
-            setTkProgressBar(pb, i*100/NN, sprintf('Progress (%s)',info), info)
+            info = sprintf(paste0("%d / ",NN), round(i))
+            setTkProgressBar(pb, i, sprintf('Delia (%s)',info), info)
             }      
         ###################
         i=i+1
     }
-    rownames(OUT)=colnames(REF)
-    colnames(OUT)=colnames(EXP)
-    rownames(C)=colnames(REF)
-    colnames(C)=colnames(EXP)
+    rownames(OUT)=header.REF
+    colnames(OUT)=header.EXP
+    rownames(C)=header.REF
+    colnames(C)=header.EXP
     
     ##################################
     RESULT=list()
@@ -200,7 +227,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
     ######################  
     RESULT$out=OUT
     RESULT$coef=C
-    RESULT$pcn=PCN
+    RESULT$pcn=PCN  
+    RESULT$pcv=PCV
+    RESULT$method=METHOD
     ######################
     if(COMBAT==TRUE){
         RESULT$combat.exp=COM.combat
@@ -216,6 +245,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
     ##############################
     return(RESULT)
     }
+
 
 
 
@@ -259,3 +289,15 @@ Delia <- function(EXP, REF, COMBAT=TRUE, PCR=FALSE, PCV=0.95, SHOW=FALSE){
     colnames(SCOEF)=colnames(COEF)
     return(SCOEF)
     }
+
+
+.scaleGlobal <- function(DATA){
+    DATA=mydelia$coef
+    OUT=matrix(scale(as.numeric(DATA)), ncol=ncol(DATA),nrow=nrow(DATA))
+    #OUT=pnorm(OUT)
+    rownames(OUT)=rownames(DATA)
+    colnames(OUT)=colnames(DATA)
+    return(OUT)
+    }
+
+
