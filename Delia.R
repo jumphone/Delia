@@ -95,8 +95,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     #############################
     header.REF=colnames(REF)
     header.EXP=colnames(EXP)
-    colnames(REF)=paste0('X',c(1:ncol(REF)))
-    colnames(EXP)=paste0('X',c(1:ncol(EXP)))
+    colnames(REF)=paste0('REF.',c(1:ncol(REF)))
+    colnames(EXP)=paste0('EXP.',c(1:ncol(EXP)))
     ############################
     COMBAT=COMBAT
     METHOD=METHOD
