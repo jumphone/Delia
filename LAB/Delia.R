@@ -29,6 +29,53 @@
 
 
 
+lm.optim <- function(DATA){
+
+    CN=colnames(DATA)
+    VAR_NAME=CN[2:length(CN)]
+    COEF_NAME=paste0('C', c(1:(length(CN)-1)))
+    ALL_COEF=c('C0',COEF_NAME)
+    ALL_COEF_E=paste(ALL_COEF,collapse ="','")
+    E=paste(paste0(COEF_NAME,'*',VAR_NAME),collapse="+")
+
+    eval.e=paste0("e<-expression((",CN[1],"-(C0+",E,"))^2)")
+    eval.foo=paste0("foo<-deriv(e, nam=c('", ALL_COEF_E, "'))")
+
+    eval(parse(text = eval.e))
+    eval(parse(text = eval.foo))
+
+    LW=c(-Inf, rep(0,length(ALL_COEF)-1))
+    UP=c(Inf, rep(1,length(ALL_COEF)-1))
+    PAR=rep(0.5, length(ALL_COEF))
+    names(PAR)=ALL_COEF
+
+    objfun<-function(coefs, data) { 
+       return(sum(eval(foo,env=c(as.list(coefs), as.list(data))))) 
+     } 
+ 
+    objgrad<-function(coefs, data) { 
+        return(apply(attr(eval(foo,env=c(as.list(coefs), as.list(data))), 
+                        "gradient"),2,sum)) 
+     } 
+
+    DATA=as.data.frame(DATA)
+
+    D1.bound<-optim(par=PAR, 
+                fn=objfun, 
+                gr=objgrad, 
+                data=DATA, 
+                method="L-BFGS-B", 
+                lower=LW, 
+                upper=UP)
+
+
+    OUT=D1.bound$par
+    names(OUT)[2:length(OUT)]=VAR_NAME
+    return(OUT)
+    }
+
+
+
 
 .simple_combine <- function(exp_sc_mat1, exp_sc_mat2){    
     exp_sc_mat=exp_sc_mat1
@@ -214,9 +261,14 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             }
         ############################
-
+        if(METHOD=='opt'){
+            this_coef=lm.optim(this_com)[c(2:(length(this_com)))]
+            this_ratio=this_coef/sum(this_coef)
+            }
         ############################
-        this_ratio=.norm_one(this_coef)
+        if(METHOD!='opt'){
+            this_ratio=.norm_one(this_coef)
+            }
         #############################        
         OUT=cbind(OUT,this_ratio)
         C=cbind(C, this_coef)
