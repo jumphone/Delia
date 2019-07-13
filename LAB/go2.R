@@ -1,3 +1,66 @@
+N=1000
+
+PseudoData<-data.frame(x1=runif(N, -5, 5),
+                        x2=runif(N, -5, 5), 
+                        x3=runif(N, -5, 5)) 
+ 
+
+PseudoData<-within(PseudoData, { 
+   y1=1+x1+0.3*x2+0.7*x3+rnorm(N, 0, 3) 
+   y2=1+x1+0.5*x2-0.5*x3+rnorm(N, 0, 3) 
+ })
+
+
+Data1<-with(PseudoData,data.frame(y=y1, x1=x1, x2=x2, x3=x3)) 
+Data2<-with(PseudoData,data.frame(y=y2, x1=x1, x2=x2, x3=x3)) 
+ 
+
+eval.e="e<-expression((y-(c1+x1+c2*x2+c3*x3))^2)"
+eval.foo="foo<-deriv(e, nam=c('c1','c2','c3'))"
+
+eval(parse(text = eval.e))
+eval(parse(text = eval.foo))
+
+
+LW=c(-Inf,0,0)
+UP=c(Inf,1,1)
+PAR=c(c1=0.5, c2=0.5, c3=0.5)
+
+objfun<-function(coefs, data) { 
+   return(sum(eval(foo,env=c(as.list(coefs), as.list(data))))) 
+ } 
+ 
+objgrad<-function(coefs, data) { 
+   return(apply(attr(eval(foo,env=c(as.list(coefs), as.list(data))), 
+                        "gradient"),2,sum)) 
+ } 
+
+
+D1.bound<-optim(par=PAR, 
+                fn=objfun, 
+                gr=objgrad, 
+                data=Data1, 
+                method="L-BFGS-B", 
+                lower=LW, 
+                upper=UP)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .beta_opt <- function(mydelia, N=30, s2=3){
     N=N
@@ -57,6 +120,19 @@ cor(OUT[1,],true_ratio[1,])
 
 OUT=apply(COEF,2,.norm_one)
 cor(OUT[1,],true_ratio[1,])
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
