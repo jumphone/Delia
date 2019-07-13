@@ -1,3 +1,66 @@
+
+.beta_opt <- function(mydelia, N=30, s2=3){
+    N=N
+    s2=s2
+    s1.lst=c(1:N) *s2 /N    
+    COEF=mydelia$coef
+    COM=mydelia$com
+    NREF=COM[,(1+ncol(mydelia$exp)):ncol(COM)]
+    NEXP=COM[,c(1:ncol(mydelia$exp))]
+    SUM=c()
+    I=c()
+
+    i=1
+    while(i<=N){
+        this_s1=s1.lst[i]
+        this_s2=s2   
+        OUT=apply(COEF,2,.beta_one, s1=this_s1,s2=this_s2)
+        predict.EXP=NREF %*% OUT
+        this_index=1
+        this_cor.lst=c()
+        while(this_index<=ncol(NEXP)){
+            this_cor=cor(NEXP[,this_index],predict.EXP[,this_index],method='spearman')
+            this_cor.lst=c(this_cor.lst,this_cor)
+            this_index=this_index+1}
+        this_sum=sum(this_cor.lst)
+        SUM=c(SUM, this_sum)
+        I=c(I,i)
+        print(i)
+        i=i+1
+        }
+
+    s1.opt=s1.lst[I[which(SUM==max(SUM))]]
+    s2.opt=s2
+    OUT=apply(COEF,2,.beta_one, s1=s1.opt,s2=s2.opt)
+    rownames(OUT)=rownames(COEF)
+    colnames(OUT)=colnames(COEF)
+    RESULT=list()
+    RESULT$out=OUT
+    RESULT$s1=s1.opt
+    RESULT$s2=s2.opt
+    return(RESULT)
+    }
+
+
+OUT=.beta_opt(mydelia , N=30,s2=3)
+OOO=OUT$out
+
+cor(OOO[1,],true_ratio[1,])
+
+    #print(s1.opt)
+    #print(s2.opt)\
+hist(rbeta(10000,shape1=OUT$s1,shape2=OUT$s2))
+
+OUT=apply(COEF,2,.beta_one, s1=1,s2=1)
+cor(OUT[1,],true_ratio[1,])
+
+
+OUT=apply(COEF,2,.norm_one)
+cor(OUT[1,],true_ratio[1,])
+
+
+
+
 setwd('F:/Delia')
 # Load Data
 REF=readRDS('./RDS/REF.RDS')
