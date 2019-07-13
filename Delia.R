@@ -11,9 +11,24 @@
     y=scale(x) 
     y=pnorm(y)
     y=y/sum(y)
+    return(y)
+    }
+
+
+
+.beta_one <- function(x, s1=0.1,s2=10){
+    s1=s1
+    s2=s2
+    y=scale(x) 
+    y=pnorm(y)
+    y=qbeta(y, shape1=s1,shape2=s2)
+    y=y/sum(y)
 
     return(y)
     }
+
+
+
 
 .simple_combine <- function(exp_sc_mat1, exp_sc_mat2){    
     exp_sc_mat=exp_sc_mat1
