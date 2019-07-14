@@ -1,3 +1,28 @@
+source('Delia.R')
+sc_exp_mat <- .readTable(PATH='SingleCellREF/sc_exp_mat.txt', SEP='\t')
+sc_exp_mat=log(sc_exp_mat+1,10)
+sc_exp_mat=apply(sc_exp_mat, 2, .norm_exp)
+
+tag <- read.table('SingleCellREF/tag.txt', sep='\t', header=TRUE,row.names=1)
+tag <- as.character(tag[,1])
+
+EXP <- readRDS('EXP.RDS')  # This matrix has been log-normalized already. 
+true_ratio <- readRDS('TRUE_RATIO.RDS')
+REF <- .generate_ref(sc_exp_mat, tag)
+
+
+
+mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='opt', SHOW=FALSE)      
+
+
+
+
+
+
+
+
+
+
 N=1000
 
 PseudoData<-data.frame(x1=runif(N, -5, 5),
@@ -76,7 +101,7 @@ lm.optim <- function(DATA){
 
 
 
-
+OUT=lm.optim(DATA)
 
 
 
