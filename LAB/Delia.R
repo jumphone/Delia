@@ -29,6 +29,7 @@
 
 
 
+
 lm.optim <- function(DATA){
 
     CN=colnames(DATA)
@@ -73,6 +74,7 @@ lm.optim <- function(DATA){
     names(OUT)[2:length(OUT)]=VAR_NAME
     return(OUT)
     }
+
 
 
 
