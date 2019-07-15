@@ -321,7 +321,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     RESULT$pcv=PCV
     RESULT$method=METHOD
     RESULT$rank=RANK
-    RESULT$opt=OPT
     ######################
     if(SHOW==TRUE){
         close(pb)
