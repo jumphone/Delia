@@ -215,7 +215,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         colnames(NCOM)=colnames(COM)
         COM=NCOM
         }
-
+    
+    COM.nonscale=COM
     ############  
     if(SCALE==TRUE){
         ##############################
@@ -264,8 +265,14 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
             }
         ############################
         if(METHOD=='opt'){
-            this_coef=lm.optim(this_com)[c(2:(length(this_com)))]
+            
+            this_com.nons = COM.nonscale[,c(i,c((ncol(EXP)+1): ncol(COM.nonscale) ))]
+            colnames(this_com.nons)[1]='NOI'
+            this_com.nons=as.data.frame(this_com.nons)
+            this_coef=lm.optim(this_com.nons)[c(2:(length(this_com.nons)))]
             this_ratio=this_coef/sum(this_coef)
+            #this_coef=lm.optim(this_com)[c(2:(length(this_com)))]
+            #this_ratio=this_coef/sum(this_coef)
             }
         ############################
         if(METHOD!='opt'){
