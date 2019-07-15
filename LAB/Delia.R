@@ -191,6 +191,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ###############################
     PCV=PCV
     SCALE=TRUE
+    if(METHOD=='opt'){SCALE=FALSE}
     ###############################
     COM=.simple_combine(EXP, REF)$combine
     NCOM=apply(COM,2,.norm_exp)
