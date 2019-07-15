@@ -187,7 +187,9 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     ###############################
     PCV=PCV
     ##############################
-    if(METHOD=='opt'){RANK=TRUE}
+    if(METHOD=='opt'){
+        print('Because METHOD is opt, RANK  ')
+        RANK=TRUE}
     ##############################
     if(RANK==TRUE){
         SCALE=FALSE
@@ -245,6 +247,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     OUT=c()
     C=c()
     PCN=c()
+    OPT=c()
     NN=ncol(EXP)
     ###################
     if(SHOW==TRUE){
@@ -285,9 +288,10 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
         ############################
         if(METHOD=='opt'){       
             opt.out=lm.optim(this_com)
+            OPT=cbind(OPT,opt.out)
             ################
             this_coef=opt.out[c(2:(length(this_com)))]
-            this_ratio=(this_coef/sum(this_coef))
+            this_ratio=(this_coef/sum(opt.out))
             }
         ############################
         ############################
@@ -316,6 +320,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     RESULT$pcn=PCN  
     RESULT$pcv=PCV
     RESULT$method=METHOD
+    RESULT$rank=RANK
+    RESULT$opt=OPT
     ######################
     if(SHOW==TRUE){
         close(pb)
