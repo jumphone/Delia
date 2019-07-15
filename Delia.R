@@ -193,11 +193,13 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
         print("Because METHOD is 'opt', RANK is changed to TRUE.")
         RANK=TRUE}
     ##############################
-    if(RANK==TRUE){
-        SCALE=FALSE
-    }else{
-        SCALE=TRUE
-    }
+    SCALE=TRUE
+    RANK=TRUE
+    #if(RANK==TRUE){
+    #    SCALE=FALSE
+    #}else{
+    #   SCALE=TRUE
+    #}
     
     ###############################
     COM=.simple_combine(EXP, REF)$combine
