@@ -93,11 +93,11 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
     
 <b>METHOD</b>: 
     
-* <b>'lm'</b> &nbsp; : &nbsp; linear model (used in our manuscript) (Default).
+* <b>'lm'</b> &nbsp; : &nbsp; Linear model (used in our manuscript) (Default).
     
-* <b>'rlm'</b> &nbsp; : &nbsp; robust linear model ('MASS' package). 
+* <b>'rlm'</b> &nbsp; : &nbsp; Robust linear model ('MASS' package). 
     
-* <b>'pcr'</b> &nbsp; : &nbsp; principal components regression ('pls' package). Caution: 'pcr' is much slower than 'lm' and 'rlm'.
+* <b>'pcr'</b> &nbsp; : &nbsp; Principal components regression ('pls' package). Caution: 'pcr' is much slower than 'lm' and 'rlm'.
 
 * <b>'opt'</b> &nbsp; : &nbsp; Linear constraint optimization ('optim' function). RANK will be changed to TRUE when using 'opt'.
     
