@@ -28,8 +28,6 @@
     }
 
 
-
-
 lm.optim <- function(DATA){
 
     CN=colnames(DATA)
@@ -38,29 +36,28 @@ lm.optim <- function(DATA){
     ALL_COEF=c('C0',COEF_NAME)
     ALL_COEF_E=paste(ALL_COEF,collapse ="','")
     E=paste(paste0(COEF_NAME,'*',VAR_NAME),collapse="+")
-
+    ##################
     eval.e=paste0("e<-expression((",CN[1],"-(C0+",E,"))^2)")
     eval.foo=paste0("foo<-deriv(e, nam=c('", ALL_COEF_E, "'))")
-
+    ##################
     eval(parse(text = eval.e))
     eval(parse(text = eval.foo))
-
-    LW=c(-Inf, rep(0,length(ALL_COEF)-1))
-    UP=c(Inf, rep(1,length(ALL_COEF)-1))
+    ##################
+    LW=c(0, rep(0,length(ALL_COEF)-1))
+    UP=c(1, rep(1,length(ALL_COEF)-1))
     PAR=rep(0.5, length(ALL_COEF))
     names(PAR)=ALL_COEF
-
+    ###################
     objfun<-function(coefs, data) { 
        return(sum(eval(foo,env=c(as.list(coefs), as.list(data))))) 
      } 
- 
+    ###################
     objgrad<-function(coefs, data) { 
         return(apply(attr(eval(foo,env=c(as.list(coefs), as.list(data))), 
                         "gradient"),2,sum)) 
      } 
-
+    ###################
     DATA=as.data.frame(DATA)
-
     D1.bound<-optim(par=PAR, 
                 fn=objfun, 
                 gr=objgrad, 
@@ -68,13 +65,11 @@ lm.optim <- function(DATA){
                 method="L-BFGS-B", 
                 lower=LW, 
                 upper=UP)
-
-
+    ####################
     OUT=D1.bound$par
     names(OUT)[2:length(OUT)]=VAR_NAME
     return(OUT)
     }
-
 
 
 
@@ -149,7 +144,7 @@ lm.optim <- function(DATA){
 
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
+Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -164,6 +159,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ############################
     COMBAT=COMBAT
     METHOD=METHOD
+    RANK=RANK
     ##############################
     # Check package
     if(METHOD=='pcr'){
@@ -190,10 +186,15 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         library(tcltk2)}
     ###############################
     PCV=PCV
-    SCALE=TRUE
-    if(METHOD=='opt'){SCALE=FALSE}
+    ###############################
+    if(RANK==TRUE){
+        SCALE=FALSE
+        }else{SCALE=TRUE}
+    
     ###############################
     COM=.simple_combine(EXP, REF)$combine
+    COM.orig=COM
+    ##############################
     NCOM=apply(COM,2,.norm_exp)
     rownames(NCOM)=rownames(COM)
     colnames(NCOM)=colnames(COM)
@@ -201,8 +202,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     VAR=apply(NCOM, 1, var)
     NCOM=NCOM[which(VAR>0),]
     ##########################
-    COM=NCOM
-    COM.orig=COM
+    COM=NCOM   
     ##########
     if(COMBAT==TRUE){
         ##############################
@@ -216,9 +216,17 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         colnames(NCOM)=colnames(COM)
         COM=NCOM
         }
-    
+    #####################
     COM.nonscale=COM
-    ############  
+    ##################
+    if(RANK==TRUE){
+        ##############################
+        print('Rank-normalization...')
+        ##############################    
+        COM=apply(COM.nonscale,2,rank)
+        }
+    ##################
+    ###################
     if(SCALE==TRUE){
         ##############################
         print('Standardization...')
@@ -227,7 +235,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         rownames(SCOM)=rownames(COM)
         colnames(SCOM)=colnames(COM)
         COM=SCOM}
-    ##################
     ##############################
     print('Deconvolution ... ')
     ##############################
@@ -252,33 +259,37 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
             used_pc=1
             while(sum(Xvar[1:used_pc])<PCV & used_pc<ncol(REF) ){used_pc=used_pc+1}
             PCN=c(PCN,used_pc)
+            ################
             this_coef=fit$coefficients[,,used_pc]
+            this_ratio=.norm_one(this_coef)
+            ################
             }
         ##############################
         if(METHOD=='lm'){
             fit=lm(NOI ~ ., data=this_com)  
+            ################
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
+            this_ratio=.norm_one(this_coef)
+            ################
             }
         ##############################
         if(METHOD=='rlm'){
             fit=rlm(NOI ~ ., data=this_com)  
+            ################
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
-            }
-        ############################
-        if(METHOD=='opt'){
-            
-            this_com.nons = COM.nonscale[,c(i,c((ncol(EXP)+1): ncol(COM.nonscale) ))]
-            colnames(this_com.nons)[1]='NOI'
-            this_com.nons=as.data.frame(this_com.nons)
-            this_coef=lm.optim(this_com.nons)[c(2:(length(this_com.nons)))]
-            this_ratio=this_coef/sum(this_coef)
-            #this_coef=lm.optim(this_com)[c(2:(length(this_com)))]
-            #this_ratio=this_coef/sum(this_coef)
-            }
-        ############################
-        if(METHOD!='opt'){
             this_ratio=.norm_one(this_coef)
+            ################
             }
+        ############################
+        if(METHOD=='opt'){       
+            opt.out=lm.optim(this_com)
+            ################
+            this_coef=opt.out[c(2:(length(this_com)))]
+            this_ratio=(this_coef/sum(this_coef))
+            ################
+            }
+        ############################
+        
         #############################        
         OUT=cbind(OUT,this_ratio)
         C=cbind(C, this_coef)
@@ -297,9 +308,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     
     ##################################
     RESULT=list()
-    RESULT$exp=EXP
-    RESULT$ref=REF
-    RESULT$com=COM.orig
+    RESULT$com.orig=COM.orig
+    RESULT$com.used=COM
     RESULT$combat=COMBAT
     ######################  
     RESULT$out=OUT
@@ -308,10 +318,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     RESULT$pcv=PCV
     RESULT$method=METHOD
     ######################
-    if(COMBAT==TRUE){
-        RESULT$combat.exp=COM.combat
-        RESULT$combat.batch=BATCH
-        }
     ##############################
     if(SHOW==TRUE){
         close(pb)
