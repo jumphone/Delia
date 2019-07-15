@@ -188,7 +188,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     PCV=PCV
     ##############################
     if(METHOD=='opt'){
-        print('Because METHOD is opt, RANK  ')
+        print("Because METHOD is 'opt', RANK is changed to TRUE.")
         RANK=TRUE}
     ##############################
     if(RANK==TRUE){
