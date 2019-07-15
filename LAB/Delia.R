@@ -28,6 +28,7 @@
     }
 
 
+
 lm.optim <- function(DATA){
 
     CN=colnames(DATA)
@@ -70,7 +71,6 @@ lm.optim <- function(DATA){
     names(OUT)[2:length(OUT)]=VAR_NAME
     return(OUT)
     }
-
 
 
 
@@ -159,7 +159,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     ############################
     COMBAT=COMBAT
     METHOD=METHOD
-    RANK=RANK
     ##############################
     # Check package
     if(METHOD=='pcr'){
@@ -186,15 +185,15 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
         library(tcltk2)}
     ###############################
     PCV=PCV
-    ###############################
+    ##############################
     if(RANK==TRUE){
         SCALE=FALSE
-        }else{SCALE=TRUE}
+    }else{
+        SCALE=TRUE
+    }
     
     ###############################
     COM=.simple_combine(EXP, REF)$combine
-    COM.orig=COM
-    ##############################
     NCOM=apply(COM,2,.norm_exp)
     rownames(NCOM)=rownames(COM)
     colnames(NCOM)=colnames(COM)
@@ -202,7 +201,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     VAR=apply(NCOM, 1, var)
     NCOM=NCOM[which(VAR>0),]
     ##########################
-    COM=NCOM   
+    COM=NCOM
     ##########
     if(COMBAT==TRUE){
         ##############################
@@ -216,17 +215,18 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
         colnames(NCOM)=colnames(COM)
         COM=NCOM
         }
+    ############
     #####################
-    COM.nonscale=COM
+    COM.orig=COM
     ##################
     if(RANK==TRUE){
         ##############################
         print('Rank-normalization...')
         ##############################    
-        COM=apply(COM.nonscale,2,rank)
+        COM=apply(COM.orig,2,rank)
         }
     ##################
-    ###################
+    ############  
     if(SCALE==TRUE){
         ##############################
         print('Standardization...')
@@ -235,6 +235,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
         rownames(SCOM)=rownames(COM)
         colnames(SCOM)=colnames(COM)
         COM=SCOM}
+    ##################
     ##############################
     print('Deconvolution ... ')
     ##############################
@@ -259,35 +260,33 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
             used_pc=1
             while(sum(Xvar[1:used_pc])<PCV & used_pc<ncol(REF) ){used_pc=used_pc+1}
             PCN=c(PCN,used_pc)
-            ################
+            ####################
             this_coef=fit$coefficients[,,used_pc]
             this_ratio=.norm_one(this_coef)
-            ################
             }
         ##############################
         if(METHOD=='lm'){
             fit=lm(NOI ~ ., data=this_com)  
-            ################
+            ####################
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             this_ratio=.norm_one(this_coef)
-            ################
             }
         ##############################
         if(METHOD=='rlm'){
-            fit=rlm(NOI ~ ., data=this_com)  
-            ################
+            fit=rlm(NOI ~ ., data=this_com) 
+            #################### 
             this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
             this_ratio=.norm_one(this_coef)
-            ################
             }
+        ############################
         ############################
         if(METHOD=='opt'){       
             opt.out=lm.optim(this_com)
             ################
             this_coef=opt.out[c(2:(length(this_com)))]
             this_ratio=(this_coef/sum(this_coef))
-            ################
             }
+        ############################
         ############################
         
         #############################        
@@ -308,17 +307,13 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     
     ##################################
     RESULT=list()
-    RESULT$com.orig=COM.orig
-    RESULT$com.used=COM
     RESULT$combat=COMBAT
-    ######################  
     RESULT$out=OUT
     RESULT$coef=C
     RESULT$pcn=PCN  
     RESULT$pcv=PCV
     RESULT$method=METHOD
     ######################
-    ##############################
     if(SHOW==TRUE){
         close(pb)
         }        
