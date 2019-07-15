@@ -100,7 +100,7 @@
 
 
 
-Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
+Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     ##############################
     print('Start!')
     print(Sys.time())
@@ -141,7 +141,13 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         library(tcltk2)}
     ###############################
     PCV=PCV
-    SCALE=TRUE
+    ##############################
+    if(RANK==TRUE){
+        SCALE=FALSE
+    }else{
+        SCALE=TRUE
+    }
+    
     ###############################
     COM=.simple_combine(EXP, REF)$combine
     NCOM=apply(COM,2,.norm_exp)
@@ -152,7 +158,6 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     NCOM=NCOM[which(VAR>0),]
     ##########################
     COM=NCOM
-    COM.orig=COM
     ##########
     if(COMBAT==TRUE){
         ##############################
@@ -166,7 +171,17 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
         colnames(NCOM)=colnames(COM)
         COM=NCOM
         }
-
+    ############
+    #####################
+    COM.orig=COM
+    ##################
+    if(RANK==TRUE){
+        ##############################
+        print('Rank-normalization...')
+        ##############################    
+        COM=apply(COM.orig,2,rank)
+        }
+    ##################
     ############  
     if(SCALE==TRUE){
         ##############################
@@ -235,22 +250,13 @@ Delia <- function(EXP, REF, COMBAT=TRUE, SHOW=FALSE, METHOD='lm', PCV=0.95){
     
     ##################################
     RESULT=list()
-    RESULT$exp=EXP
-    RESULT$ref=REF
-    RESULT$com=COM.orig
     RESULT$combat=COMBAT
-    ######################  
     RESULT$out=OUT
     RESULT$coef=C
     RESULT$pcn=PCN  
     RESULT$pcv=PCV
     RESULT$method=METHOD
     ######################
-    if(COMBAT==TRUE){
-        RESULT$combat.exp=COM.combat
-        RESULT$combat.batch=BATCH
-        }
-    ##############################
     if(SHOW==TRUE){
         close(pb)
         }        
