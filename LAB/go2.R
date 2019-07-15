@@ -12,6 +12,268 @@ REF <- .generate_ref(sc_exp_mat, tag)
 
 
 
+source('Delia.R')
+mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='opt', SHOW=FALSE)      
+
+
+True.A=true_ratio[1,]
+Est.A=mydelia$coef[1,]
+PCC=round(cor(True.A,Est.A,method='pearson'),2)
+
+plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
+
+
+
+
+
+CORMAT=cor(t(true_ratio),t(mydelia$out))
+
+CORMAT
+
+CORMAT[1,1]+CORMAT[2,4]+CORMAT[4,5]+CORMAT[5,5]+CORMAT[6,3]+CORMAT[7,2]
+
+plot(true_ratio[2,],mydelia$out[4,])
+plot(true_ratio[4,]+true_ratio[5,],mydelia$out[5,])
+
+
+
+
+
+
+
+
+
+##############################
+    print('Start!')
+    print(Sys.time())
+    ##############################   
+    REF=REF
+    EXP=EXP
+    #############################
+    header.REF=colnames(REF)
+    header.EXP=colnames(EXP)
+    colnames(REF)=paste0('REF.',c(1:ncol(REF)))
+    colnames(EXP)=paste0('EXP.',c(1:ncol(EXP)))
+    ############################
+    COMBAT=TRUE
+    METHOD='lm'
+    ##############################
+    SHOW=FALSE
+    PCV=0.95
+
+# Check package
+    if(METHOD=='pcr'){
+        if(!'pls' %in% installed.packages()[,1]){
+            print("Please install 'pls' for the principal components regression.")
+            print("install.packages('pls')")
+            return(NULL)}
+        library(pls)
+        }
+    if(METHOD=='rlm'){
+        if(!'MASS' %in% installed.packages()[,1]){
+            print("Please install 'MASS' for the robust linear regression.")
+            print("install.packages('MASS')")
+            return(NULL)}
+        library(MASS)
+        }
+    
+    ###############################
+    if(SHOW==TRUE){
+        if(!'tcltk2' %in% installed.packages()[,1]){
+            print("Please install 'tcltk2' for the progress bar.")
+            print("install.packages('tcltk2')")
+            return(NULL)}
+        library(tcltk2)}
+    ###############################
+    PCV=PCV
+    SCALE=TRUE
+    ###############################
+    COM=.simple_combine(EXP, REF)$combine
+    NCOM=apply(COM,2,.norm_exp)
+    rownames(NCOM)=rownames(COM)
+    colnames(NCOM)=colnames(COM)
+    ###########################
+    VAR=apply(NCOM, 1, var)
+    NCOM=NCOM[which(VAR>0),]
+    ##########################
+    COM=NCOM
+    COM.orig=COM
+    ##########
+    if(COMBAT==TRUE){
+        ##############################
+        print('Batch correction...')
+        ##############################
+        BATCH=c(rep('REF',ncol(REF)),rep('EXP',ncol(EXP)))
+        COM.combat=.combat(COM, BATCH)         
+        COM=COM.combat
+        NCOM=apply(COM,2,.norm_exp)
+        rownames(NCOM)=rownames(COM)
+        colnames(NCOM)=colnames(COM)
+        COM=NCOM
+        }
+    ###########
+    COM.nonscale=COM
+    ############  
+    if(SCALE==TRUE){
+        ##############################
+        print('Standardization...')
+        ##############################    
+        SCOM=t(apply(COM,1,scale))
+        rownames(SCOM)=rownames(COM)
+        colnames(SCOM)=colnames(COM)
+        COM=SCOM}
+    ##################
+    ##############################
+    print('Deconvolution ... ')
+    ##############################
+    OUT=c()
+    C=c()
+    PCN=c()
+    NN=ncol(EXP)
+    ###################
+    if(SHOW==TRUE){
+        pb = tkProgressBar('Delia',"/", 0, NN)
+        }
+    #####################
+
+
+
+
+
+
+
+
+
+
+i=1
+
+this_com.nons = COM.nonscale[,c(i,c((ncol(EXP)+1): ncol(COM.nonscale) ))]
+colnames(this_com.nons)[1]='NOI'
+this_com.nons=as.data.frame(this_com.nons)
+
+
+this_coef=lm.optim(this_com.nons)[c(2:(length(this_com.nons)))]
+            this_ratio=this_coef/sum(this_coef)
+
+
+
+ this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
+        colnames(this_com)[1]='NOI'
+        this_com=as.data.frame(this_com)
+
+
+
+
+
+this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
+        colnames(this_com)[1]='NOI'
+        this_com=as.data.frame(this_com)
+
+this_coef=lm.optim(this_com)[c(2:(length(this_com)))]
+            this_ratio=this_coef/sum(this_coef)
+
+
+
+this_cor=cor(this_com)
+
+
+
+
+
+
+
+
+
+    i=1
+    while(i<=ncol(EXP)){
+        this_com= COM[,c(i,c((ncol(EXP)+1): ncol(COM) ))]
+        colnames(this_com)[1]='NOI'
+        this_com=as.data.frame(this_com)
+        ##############################
+        if(METHOD=='pcr'){
+            fit=pcr(NOI~., data = this_com, scale = TRUE, validation = "CV")
+            Xvar=fit$Xvar/fit$Xtotvar
+            used_pc=1
+            while(sum(Xvar[1:used_pc])<PCV & used_pc<ncol(REF) ){used_pc=used_pc+1}
+            PCN=c(PCN,used_pc)
+            this_coef=fit$coefficients[,,used_pc]
+            }
+        ##############################
+        if(METHOD=='lm'){
+            fit=lm(NOI ~ ., data=this_com)  
+            this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
+            }
+        ##############################
+        if(METHOD=='rlm'){
+            fit=rlm(NOI ~ ., data=this_com)  
+            this_coef=fit$coefficients[c(2:(ncol(REF)+1))]
+            }
+        ############################
+        if(METHOD=='opt'){
+            this_coef=lm.optim(this_com)[c(2:(length(this_com)))]
+            this_ratio=this_coef/sum(this_coef)
+            }
+        ############################
+        if(METHOD!='opt'){
+            this_ratio=.norm_one(this_coef)
+            }
+        #############################        
+        OUT=cbind(OUT,this_ratio)
+        C=cbind(C, this_coef)
+        ############################
+        if(SHOW==TRUE){
+            info = sprintf(paste0("%d / ",NN), round(i))
+            setTkProgressBar(pb, i, sprintf('Delia (%s)',info), info)
+            }      
+        ###################
+        i=i+1
+    }
+    rownames(OUT)=header.REF
+    colnames(OUT)=header.EXP
+    rownames(C)=header.REF
+    colnames(C)=header.EXP
+    
+    ##################################
+    RESULT=list()
+    RESULT$exp=EXP
+    RESULT$ref=REF
+    RESULT$com=COM.orig
+    RESULT$combat=COMBAT
+    ######################  
+    RESULT$out=OUT
+    RESULT$coef=C
+    RESULT$pcn=PCN  
+    RESULT$pcv=PCV
+    RESULT$method=METHOD
+    ######################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='opt', SHOW=FALSE)      
 
 
