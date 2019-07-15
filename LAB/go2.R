@@ -5,22 +5,36 @@ sc_exp_mat=apply(sc_exp_mat, 2, .norm_exp)
 
 tag <- read.table('SingleCellREF/tag.txt', sep='\t', header=TRUE,row.names=1)
 tag <- as.character(tag[,1])
+true_ratio <- readRDS('TRUE_RATIO.RDS')
+
 
 EXP <- readRDS('EXP.RDS')  # This matrix has been log-normalized already. 
-true_ratio <- readRDS('TRUE_RATIO.RDS')
 REF <- .generate_ref(sc_exp_mat, tag)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 source('Delia.R')
-mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='opt', SHOW=FALSE)      
+mydelia <- Delia(EXP, REF, RANK=FALSE, COMBAT=TRUE, METHOD='lm', SHOW=FALSE)      
 
 
 
 
 
 
-CORMAT=cor(t(true_ratio),t(mydelia$out))
+CORMAT=cor(t(true_ratio),t(mydelia$coef))
 CORMAT
 CORMAT[1,1]+CORMAT[2,4]+CORMAT[4,5]+CORMAT[5,5]+CORMAT[6,3]+CORMAT[7,2]
 
@@ -145,6 +159,7 @@ plot(true_ratio[4,]+true_ratio[5,],mydelia$out[5,])
 i=1
 
 this_com.nons = COM.nonscale[,c(i,c((ncol(EXP)+1): ncol(COM.nonscale) ))]
+this_com.nons=apply(this_com.nons,2,rank)
 colnames(this_com.nons)[1]='NOI'
 this_com.nons=as.data.frame(this_com.nons)
 
