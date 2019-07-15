@@ -79,7 +79,7 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
 ## 4. Run Delia:
 
-    mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='lm', SHOW=FALSE)      
+    mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='lm', SHOW=FALSE, RANK=FALSE)      
 
 <b>EXP</b>: expression matrix of query data; Colname is query name, rowname is gene name
 
@@ -89,6 +89,8 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 
 <b>SHOW</b>: show progress bar ('tcltk2' package) (Default is FALSE)
 
+<b>RANK</b>: use Rank-based normalization (Default if FASLE)
+    
 <b>METHOD</b>: 
     
 * <b>'lm'</b> &nbsp; : &nbsp; linear model (used in our manuscript) (Default).
@@ -96,6 +98,8 @@ Download DEMO data from: https://github.com/jumphone/Delia/tree/master/DEMO
 * <b>'rlm'</b> &nbsp; : &nbsp; robust linear model ('MASS' package). 
     
 * <b>'pcr'</b> &nbsp; : &nbsp; principal components regression ('pls' package). Caution: 'pcr' is much slower than 'lm' and 'rlm'.
+
+* <b>'opt'</b> &nbsp; : &nbsp; Linear constraint optimization ('optim' function). RANK will be changed to TRUE when using 'opt'.
     
 </br>
 
