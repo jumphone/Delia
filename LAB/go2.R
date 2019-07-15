@@ -16,21 +16,18 @@ source('Delia.R')
 mydelia <- Delia(EXP, REF, COMBAT=TRUE, METHOD='opt', SHOW=FALSE)      
 
 
-True.A=true_ratio[1,]
-Est.A=mydelia$coef[1,]
-PCC=round(cor(True.A,Est.A,method='pearson'),2)
-
-plot(True.A, Est.A, pch=16, main=paste0('PCC=',PCC))
-
 
 
 
 
 CORMAT=cor(t(true_ratio),t(mydelia$out))
-
 CORMAT
-
 CORMAT[1,1]+CORMAT[2,4]+CORMAT[4,5]+CORMAT[5,5]+CORMAT[6,3]+CORMAT[7,2]
+
+
+
+
+
 
 plot(true_ratio[2,],mydelia$out[4,])
 plot(true_ratio[4,]+true_ratio[5,],mydelia$out[5,])
