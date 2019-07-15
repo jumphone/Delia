@@ -291,7 +291,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
             OPT=cbind(OPT,opt.out)
             ################
             this_coef=opt.out[c(2:(length(this_com)))]
-            this_ratio=(this_coef/sum(opt.out))
+            this_ratio=(this_coef/sum(this_coef))
             }
         ############################
         ############################
