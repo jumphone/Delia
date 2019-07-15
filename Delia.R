@@ -159,6 +159,7 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
     ############################
     COMBAT=COMBAT
     METHOD=METHOD
+    RANK=RANK
     ##############################
     # Check package
     if(METHOD=='pcr'){
@@ -185,6 +186,8 @@ Delia <- function(EXP, REF, COMBAT=TRUE, RANK=FALSE, SHOW=FALSE, METHOD='lm', PC
         library(tcltk2)}
     ###############################
     PCV=PCV
+    ##############################
+    if(METHOD=='opt'){RANK=TRUE}
     ##############################
     if(RANK==TRUE){
         SCALE=FALSE
