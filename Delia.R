@@ -1,5 +1,5 @@
 
-print("Thanks for using Delia(v0.1.2) ! ")
+print("Welcome to use Delia(v0.1.2) ! ")
 
 .norm_exp<-function(x){
     y=x
