@@ -40,7 +40,7 @@ library(dtangle)
 
 MK=find_markers(Y=DATA$data$log, reference=t(REF) )
 
-TOP=2000
+TOP=1000
 
 MK.GENE=c()
 i=1
@@ -51,7 +51,7 @@ i=i+1}
 ###################
 REF.MK=REF[which(rownames(REF) %in% MK.GENE),]
 
-mydelia <- Delia(MIX, REF.MK, COMBAT=FALSE, METHOD='opt', SHOW=FALSE, RANK=FALSE)     
+mydelia <- Delia(MIX, REF.MK, COMBAT=FALSE, METHOD='lm', SHOW=FALSE, RANK=FALSE)     
 PP.TRUE=DATA$annotation$mixture[MIX.INDEX,]
 PP.DELIA=t(mydelia$out)
 
@@ -66,11 +66,11 @@ while(i<=ncol(REF)){
     i=i+1
    }
 mean(COR)
-#0.9937817
+#0.9670429
 
 ##############################################
 
-TOP=2000
+TOP=1000
 DT.RESULT=dtangle(Y=DATA$data$log, reference=t(REF),n_markers=TOP )
 PP.DT=DT.RESULT$estimates[MIX.INDEX,]
 
@@ -82,7 +82,7 @@ while(i<=ncol(REF)){
     i=i+1
    }
 mean(COR)
-
+#0.9617639
 
 
 
@@ -127,7 +127,7 @@ library(dtangle)
 
 MK=find_markers(Y=DATA$data$log, reference=t(REF) )
 
-TOP=2000
+TOP=1000
 
 MK.GENE=c()
 i=1
@@ -138,7 +138,7 @@ i=i+1}
 ###################
 REF.MK=REF[which(rownames(REF) %in% MK.GENE),]
 
-mydelia <- Delia(MIX, REF.MK, COMBAT=FALSE, METHOD='opt', SHOW=FALSE, RANK=FALSE)     
+mydelia <- Delia(MIX, REF.MK, COMBAT=TRUE, METHOD='lm', SHOW=FALSE, RANK=FALSE)     
 PP.TRUE=DATA$annotation$mixture[MIX.INDEX,]
 PP.DELIA=t(mydelia$out)
 
@@ -153,11 +153,11 @@ while(i<=ncol(REF)){
     i=i+1
    }
 mean(COR)
-#0.9937817
+#0.7711682
 
 ##############################################
 
-TOP=2000
+TOP=1000
 DT.RESULT=dtangle(Y=DATA$data$log, reference=t(REF),n_markers=TOP )
 PP.DT=DT.RESULT$estimates[MIX.INDEX,]
 
@@ -169,7 +169,7 @@ while(i<=ncol(REF)){
     i=i+1
    }
 mean(COR)
-
+#0.7421834
 
 
 
