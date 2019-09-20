@@ -55,6 +55,10 @@ while(data.index<=length(DATA.ALL)){
   
 ##############################################
 
+  
+UG=names(which(table(colnames(DATA$data$log))==1))
+ DATA$data$log=DATA$data$log[,which(colnames(DATA$data$log) %in% UG)] 
+  
 EXP=t(DATA$data$log)
 
 REF.FLAG=apply(DATA$annotation$pure,1,sum)
@@ -160,7 +164,7 @@ abline(a=0,b=1)
 
 
 
-USED=which()
+USED=which(!is.na(DELIA.COR) & !is.na(DTAN.COR))
 
 
 
