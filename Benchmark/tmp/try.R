@@ -22,7 +22,7 @@ load('newman_fl.rda')
 load('newman_pbmc.rda')
 load('shen_orr.rda')
 load('shi.rda')
-load('siegert.rda')
+load('parsons.rda')
 
 
 
@@ -39,13 +39,13 @@ DATA.ALL[[7]]=newman_fl
 DATA.ALL[[8]]=newman_pbmc
 DATA.ALL[[9]]=shen_orr
 DATA.ALL[[10]]=shi
-DATA.ALL[[11]]=siegert
+DATA.ALL[[11]]=parsons
 
 
 
 DELIA.COR=c()
 DTAN.COR=c()
-TOP=5000
+TOP=100
 
 
 data.index=1
@@ -120,9 +120,12 @@ DELIA.COR=c(DELIA.COR, mean(COR))
 
 ##############################################
 
-
 DT.RESULT=dtangle(Y=DATA$data$log, reference=t(REF),n_markers=TOP )
-PP.DT=DT.RESULT$estimates[MIX.INDEX,]
+
+#DT.RESULT=dtangle(Y=DATA$data$log, pure_samples=DATA$annotation$pure_samples,n_markers=TOP )
+
+  
+  PP.DT=DT.RESULT$estimates[MIX.INDEX,]
 
 COR=c()
 i=1
@@ -157,7 +160,7 @@ abline(a=0,b=1)
 
 
 
-
+USED=which()
 
 
 
