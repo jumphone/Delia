@@ -162,12 +162,11 @@ plot(DELIA.COR,DTAN.COR)
 abline(a=0,b=1)
 
 
-
-
 USED=which(!is.na(DELIA.COR) & !is.na(DTAN.COR))
 
 
-
+boxplot(DELIA.COR[USED],DTAN.COR[USED],
+        ylim=c(0,1),names=c('Delia','dtangle'))
 
 
 
