@@ -45,7 +45,7 @@ DATA.ALL[[11]]=siegert
 
 DELIA.COR=c()
 DTAN.COR=c()
-TOP=2000
+TOP=5000
 
 
 data.index=1
@@ -96,6 +96,10 @@ i=i+1}
 REF.MK=REF[which(rownames(REF) %in% MK.GENE),]
 
 mydelia <- Delia(MIX, REF.MK, COMBAT=FALSE, METHOD='lm', SHOW=FALSE, RANK=FALSE)     
+
+  #mydelia <- Delia(MIX, REF, COMBAT=FALSE, METHOD='lm', SHOW=FALSE, RANK=FALSE)     
+
+  
 PP.TRUE=DATA$annotation$mixture[MIX.INDEX,]
 PP.DELIA=t(mydelia$out)
 
@@ -106,10 +110,12 @@ COR=c()
 i=1
 while(i<=ncol(REF)){
     this_cor=cor(PP.TRUE[,i],PP.DELIA[,i])
-    COR=c(COR,this_cor)
+    if(!is.na(this_cor)){
+        COR=c(COR,this_cor)}
     i=i+1
    }
 
+  
 DELIA.COR=c(DELIA.COR, mean(COR))
 
 ##############################################
@@ -122,7 +128,8 @@ COR=c()
 i=1
 while(i<=ncol(REF)){
     this_cor=cor(PP.TRUE[,i],PP.DT[,i])
-    COR=c(COR,this_cor)
+    if(!is.na(this_cor)){
+        COR=c(COR,this_cor)}
     i=i+1
    }
 
@@ -140,12 +147,12 @@ DTAN.COR=c(DTAN.COR, mean(COR))
 
    }
 
+DELIA.COR
+DTAN.COR
 
 
-
-
-
-
+plot(DELIA.COR,DTAN.COR)
+abline(a=0,b=1)
 
 
 
