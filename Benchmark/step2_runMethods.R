@@ -36,7 +36,7 @@ CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 
 plot(RATIO[4,],ALLR[6,],pch=16)
-
+#4.163812
 
 ##########################################
 #2019.9.26
@@ -58,7 +58,7 @@ dev.off()
 
 
 CORMAT.DT[1,1]+CORMAT.DT[2,2]+CORMAT.DT[3,4]+CORMAT.DT[3,5]+CORMAT.DT[4,6]+CORMAT.DT[5,7]
-
+#3.361094
 
 ##################################
 
