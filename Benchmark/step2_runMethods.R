@@ -30,12 +30,37 @@ heatmap.2(CORMAT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(
 dev.off()
 ########################
 
+
 RATIO=readRDS(file='./RESULT/Delia_all.RDS')
 CORMAT=cor(t(RATIO), t(ALLR), method='pearson')
 CORMAT[1,1]+CORMAT[2,2]+CORMAT[3,4]+CORMAT[3,5]+CORMAT[4,6]+CORMAT[5,7]
 
 plot(RATIO[4,],ALLR[6,],pch=16)
 
+
+##########################################
+#2019.9.26
+library(dtangle)
+TOP=2000
+CCC=.simple_combine(REXP,SC.REF)
+DT.RESULT=dtangle(Y=t(CCC$exp_sc_mat1), reference=t(CCC$exp_sc_mat2),n_markers=TOP )
+
+PP.DT=t(DT.RESULT$estimates)
+
+CORMAT.DT=cor(t(PP.DT), t(ALLR), method='pearson')
+
+
+pdf('./RESULT/dtangle_top2000.pdf',width=6, height=6)
+library('gplots')
+heatmap.2(CORMAT.DT,scale=c("none"),dendrogram='none',Rowv=F,Colv=F,cellnote=round(CORMAT.DT,2),notecol='black',
+    trace='none',col=colorRampPalette(c('royalblue','grey80','indianred')),margins=c(10,10))
+dev.off()
+
+
+CORMAT.DT[1,1]+CORMAT.DT[2,2]+CORMAT.DT[3,4]+CORMAT.DT[3,5]+CORMAT.DT[4,6]+CORMAT.DT[5,7]
+
+
+##################################
 
 # Delia with variable genes, 1 second
 mydelia = Delia(REXP, V.SC.REF)
